@@ -10,5 +10,11 @@ Gem::Specification.new do |s|
   s.email       = 'dominique.adolphe@gmail.com'
   s.files       = Dir.glob('lib/**/*')
   s.executables << "wsapi"
+  s.add_runtime_dependency "bundler"
+  s.add_runtime_dependency "faraday","~> 1.0"
+  s.add_runtime_dependency "faraday-cookie_jar"
+  s.add_runtime_dependency "faraday_middleware"
+  s.add_runtime_dependency "http-cookie"
+  s.add_runtime_dependency "rainbow"
   s.license       = 'MIT'
 end

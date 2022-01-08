@@ -1,0 +1,13 @@
+---
+- !ruby/object:HTTP::Cookie
+  name: uid
+  value: u12345
+  domain: example.org
+  for_domain: true
+  path: "/"
+  secure: false
+  httponly: false
+  expires: 
+  max_age: 604800
+  created_at: &1 2022-01-09 03:32:52.257728303 +04:00
+  accessed_at: *1
