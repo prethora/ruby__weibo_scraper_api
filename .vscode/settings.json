@@ -1,0 +1,8 @@
+{
+  "files.exclude": {
+    ".vscode/": true,
+    ".gitignore": true,
+    "dev-bin": true,
+    "Gemfile.lock": true
+  }
+}

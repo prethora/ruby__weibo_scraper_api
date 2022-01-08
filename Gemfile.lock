@@ -1,0 +1,16 @@
+PATH
+  remote: .
+  specs:
+    weibo_scraper_api (0.0.1)
+
+GEM
+  specs:
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  weibo_scraper_api!
+
+BUNDLED WITH
+   2.3.4
