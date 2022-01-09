@@ -8,7 +8,8 @@ class WSAPI
         class Session
             def initialize()
                 @jar = HTTP::CookieJar.new
-                @conn = WSAPI::Util::HttpClient.new(jar:@jar,follow_redirects: true)# ,log: true)
+                # @conn = WSAPI::Util::HttpClient.new(jar:@jar,follow_redirects: true,log: true)
+                @conn = WSAPI::Util::HttpClient.new(jar:@jar,follow_redirects: true)
                 yield self if block_given?
             end
 
@@ -102,8 +103,8 @@ class WSAPI
                 raise WSAPI::Exceptions::Unexpected.new("UNEXP00016","status: #{response.status}") if response.status!=200
 
                 url = "https://weibo.com/ajax/profile/info?uid=#{uid}"
-                headers = {"referer" => "https://weibo.com/u/#{uid}"}
-                response = @conn.get(url);
+                headers = {"referer" => "https://weibo.com/u/#{uid}","accept" => "application/json, text/plain, */*"}
+                response = @conn.get(url,headers: headers);
                 raise WSAPI::Exceptions::Unexpected.new("UNEXP00017","status: #{response.status}") if response.status!=200
 
                 raise WSAPI::Exceptions::Unexpected.new("UNEXP00018") if !response.body.start_with? "{\"ok\":1"
@@ -113,10 +114,50 @@ class WSAPI
                 raise WSAPI::Exceptions::Unexpected.new("UNEXP00021") if json_response["data"]["user"]["id"].nil?
                 raise WSAPI::Exceptions::Unexpected.new("UNEXP00022") if json_response["data"]["user"]["id"]!=uid
 
+                add_internal_cookie_value "uid",uid
                 persist_session_cookies
 
                 puts ""
                 puts Rainbow("Session created").white.bright
+            end
+
+            def is_active?
+                uid = internal_uid
+                raise WSAPI::Exceptions::InvalidInput.new("internal_id not found") if uid.nil?
+
+                url = "https://weibo.com/ajax/profile/info?uid=#{uid}"
+                headers = {"referer" => "https://weibo.com/u/#{uid}","accept" => "application/json, text/plain, */*"}
+                response = @conn.get(url,headers: headers);
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00023","status: #{response.status}") if response.status!=200
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00024") if !response.body.start_with? "{\"ok\":"
+
+                json_response = JSON.parse(response.body)
+                return false if json_response["data"].nil?
+                return false if json_response["data"]["user"].nil?
+                return false if json_response["data"]["user"]["id"].nil?
+                return false if json_response["data"]["user"]["id"].to_s!=uid.to_s
+
+                true
+            end
+
+            def renew
+                return false if is_active?
+
+                url = "https://weibo.com"
+                response = @conn.get(url);
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00025","status: #{response.status}") if response.status!=200
+
+                url = WSAPI::Util::String.simple_parse(response.body,'location.replace("','");')
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00026") if url.nil?
+
+                headers = {"referer" => "https://login.sina.com.cn/"}
+                response = @conn.get(url,headers: headers);
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00027","status: #{response.status}") if response.status!=200
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00028") if !is_active?
+            
+                persist_session_cookies
+
+                return true
             end
 
             def load(readable)
@@ -129,14 +170,32 @@ class WSAPI
 
             def test
                 uid = 2125613987
-                url = "https://weibo.com/ajax/friendships/friends?page=1&uid=#{uid}"
-                headers = {"referer" => "https://weibo.com/u/#{uid}"}
-                response = @conn.get(url);
+                # url = "https://weibo.com/ajax/friendships/friends?page=1&uid=#{uid}"
+                url = "https://weibo.com/ajax/profile/info?uid=#{uid}"
+                headers = {"referer" => "https://weibo.com/u/#{uid}","accept" => "application/json, text/plain, */*"}
+                response = @conn.get(url,headers: headers);
 
                 p response.body
             end
 
+            def internal_uid
+                lookup_internal_cookie_value "uid"
+            end
+
             private
+
+            def lookup_internal_cookie_value(name)
+                internal_cookie = @jar.cookies.filter {|cookie| cookie.name=="internal_#{name}" && cookie.domain=="wsapi.internal" }[0]
+                internal_cookie&.value
+            end
+
+            def add_internal_cookie_value(name,value)
+                internal_cookie = HTTP::Cookie.new("internal_#{name}",value.to_s,domain: "wsapi.internal",
+                    for_domain: true,
+                    path: "/",
+                    max_age: 60*60*24*365*5)
+                @jar.add(internal_cookie)
+            end
 
             def persist_session_cookies
                 @jar.cookies.each do |cookie|

@@ -4,4 +4,4 @@ CURRENT_SCRIPT_DIR_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 &
 PROJECT_DIR_PATH="$(cd "$CURRENT_SCRIPT_DIR_PATH/.." && pwd)"
 cd "$PROJECT_DIR_PATH"
 
-alias wsapi='bundle exec ./bin/wsapi'
+alias wsapi='./bin/wsapi'

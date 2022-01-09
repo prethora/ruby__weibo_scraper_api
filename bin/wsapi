@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
+trap "SIGINT" do
+    exit 130
+end
+
 require "bundler/setup"
 require "weibo_scraper_api/cli"
 

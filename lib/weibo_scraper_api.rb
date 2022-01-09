@@ -1,4 +1,5 @@
 require "weibo_scraper_api/api"
+require "weibo_scraper_api/storage"
 require "weibo_scraper_api/util"
 require "weibo_scraper_api/exceptions"
 
