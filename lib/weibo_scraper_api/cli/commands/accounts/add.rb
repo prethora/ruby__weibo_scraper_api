@@ -28,12 +28,10 @@ class WSAPI
                             config = WSAPI::Storage::Config.new(options["config-path"])
                             data = config.get_data
                             return if data.get_accounts.include?(name) && !confirm_overwrite(name)
-                            
-                            account_path = data.get_account_path(name)
-                            session = WSAPI::API::Session.new
-                            session.login                            
-                            session.save account_path
 
+                            sm = WSAPI::Storage::SessionManager.new(config)
+                            account_path = sm.add_account(name)
+                            
                             puts
                             puts "------------------------------------------"
                             puts bright("Account session written to:")

@@ -9,7 +9,7 @@ class WSAPI
             attr_accessor :keep_alive_interval_days
             attr_accessor :config_path
 
-            def initialize(config_path)
+            def initialize(config_path = nil)
                 @data_dir = ""
                 @user_agent = ""
                 @keep_alive_interval_days = 0

@@ -2,6 +2,7 @@ require 'weibo_scraper_api'
 require 'http/cookie_jar'
 require 'rainbow'
 require 'json'
+require 'yaml'
 
 class WSAPI
     module API
@@ -115,7 +116,6 @@ class WSAPI
                 raise WSAPI::Exceptions::Unexpected.new("UNEXP00022") if json_response["data"]["user"]["id"]!=uid
 
                 add_internal_cookie_value "uid",uid
-                persist_session_cookies
 
                 puts ""
                 puts Rainbow("Session created").white.bright
@@ -155,8 +155,6 @@ class WSAPI
                 raise WSAPI::Exceptions::Unexpected.new("UNEXP00027","status: #{response.status}") if response.status!=200
                 raise WSAPI::Exceptions::Unexpected.new("UNEXP00028") if !is_active?
             
-                persist_session_cookies
-
                 return true
             end
 
@@ -165,18 +163,22 @@ class WSAPI
             end
 
             def save(writable)
-                @jar.save(writable)
+                File.open(writable,"w") { |f| f.write(to_yaml) }
             end
 
-            def test
-                uid = 2125613987
-                # url = "https://weibo.com/ajax/friendships/friends?page=1&uid=#{uid}"
-                url = "https://weibo.com/ajax/profile/info?uid=#{uid}"
-                headers = {"referer" => "https://weibo.com/u/#{uid}","accept" => "application/json, text/plain, */*"}
-                response = @conn.get(url,headers: headers);
-
-                p response.body
+            def to_yaml
+                @jar.to_a.to_yaml
             end
+
+            # def test
+            #     uid = 2125613987
+            #     # url = "https://weibo.com/ajax/friendships/friends?page=1&uid=#{uid}"
+            #     url = "https://weibo.com/ajax/profile/info?uid=#{uid}"
+            #     headers = {"referer" => "https://weibo.com/u/#{uid}","accept" => "application/json, text/plain, */*"}
+            #     response = @conn.get(url,headers: headers);
+
+            #     p response.body
+            # end
 
             def internal_uid
                 lookup_internal_cookie_value "uid"
@@ -195,14 +197,6 @@ class WSAPI
                     path: "/",
                     max_age: 60*60*24*365*5)
                 @jar.add(internal_cookie)
-            end
-
-            def persist_session_cookies
-                @jar.cookies.each do |cookie|
-                    if cookie.expires.nil? && cookie.max_age.nil?
-                        cookie.max_age = 60*60*24*365*5
-                    end
-                end
             end
         end
     end
