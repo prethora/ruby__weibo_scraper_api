@@ -1,11 +1,38 @@
 require 'optparse'
 require 'weibo_scraper_api/cli/commands/base'
+require 'json'
 
 class WSAPI
     module CLI
         module Commands
             class Configure < Base
-                def run(argv)
+                def run(argv)                    
+                    WSAPI.new(account_name: "stale") do |wsapi|
+                        # p wsapi.profile 2125613987
+                        # puts wsapi.fans(2125613987,"2").to_json
+                        # puts wsapi.profile(5471534537).to_json
+                        # puts wsapi.fans(5471534537).to_json
+                        # puts wsapi.friends(5471534537).to_json
+                        # p wsapi.friends 2125613987
+                        puts wsapi.statuses(2125613987,"4724034534640347kp6").to_json
+                    end
+
+                    # fetcher = lambda do |uri,vv|
+                    #     puts "Started fetching #{uri}"
+                    #     # puts open(uri).read
+                    #     puts "Stopped fetching #{uri}"
+                    #     [uri,vv]
+                    # end
+                      
+                    # thread1 = Thread.new("http://localhost:9292", "v1",&fetcher)
+                    # thread2 = Thread.new("http://localhost:9293", "v2",&fetcher)
+                      
+                    # # thread1.join
+                    # # thread2.join                    
+
+                    # p [thread1.value,thread2.value]
+
+                    return
                     return show_help if argv.length==1 && ["-h","--help"].include?(argv[0])
 
                     options = {}

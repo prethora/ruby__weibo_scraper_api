@@ -7,6 +7,8 @@ require 'yaml'
 class WSAPI
     module API
         class Session
+            attr_accessor :conn
+
             def initialize()
                 @jar = HTTP::CookieJar.new
                 # @conn = WSAPI::Util::HttpClient.new(jar:@jar,follow_redirects: true,log: true)
@@ -101,19 +103,19 @@ class WSAPI
                 
                 url = "https://weibo.com"
                 response = @conn.get(url);
-                raise WSAPI::Exceptions::Unexpected.new("UNEXP00016","status: #{response.status}") if response.status!=200
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00017","status: #{response.status}") if response.status!=200
 
                 url = "https://weibo.com/ajax/profile/info?uid=#{uid}"
                 headers = {"referer" => "https://weibo.com/u/#{uid}","accept" => "application/json, text/plain, */*"}
                 response = @conn.get(url,headers: headers);
-                raise WSAPI::Exceptions::Unexpected.new("UNEXP00017","status: #{response.status}") if response.status!=200
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00018","status: #{response.status}") if response.status!=200
 
-                raise WSAPI::Exceptions::Unexpected.new("UNEXP00018") if !response.body.start_with? "{\"ok\":1"
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00019") if !response.body.start_with? "{\"ok\":1"
                 json_response = JSON.parse(response.body)
-                raise WSAPI::Exceptions::Unexpected.new("UNEXP00019") if json_response["data"].nil?
-                raise WSAPI::Exceptions::Unexpected.new("UNEXP00020") if json_response["data"]["user"].nil?
-                raise WSAPI::Exceptions::Unexpected.new("UNEXP00021") if json_response["data"]["user"]["id"].nil?
-                raise WSAPI::Exceptions::Unexpected.new("UNEXP00022") if json_response["data"]["user"]["id"]!=uid
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00020") if json_response["data"].nil?
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00021") if json_response["data"]["user"].nil?
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00022") if json_response["data"]["user"]["id"].nil?
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00023") if json_response["data"]["user"]["id"]!=uid
 
                 add_internal_cookie_value "uid",uid
 
@@ -128,10 +130,14 @@ class WSAPI
                 url = "https://weibo.com/ajax/profile/info?uid=#{uid}"
                 headers = {"referer" => "https://weibo.com/u/#{uid}","accept" => "application/json, text/plain, */*"}
                 response = @conn.get(url,headers: headers);
-                raise WSAPI::Exceptions::Unexpected.new("UNEXP00023","status: #{response.status}") if response.status!=200
-                raise WSAPI::Exceptions::Unexpected.new("UNEXP00024") if !response.body.start_with? "{\"ok\":"
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00024","status: #{response.status}") if response.status!=200
 
-                json_response = JSON.parse(response.body)
+                begin
+                    json_response = JSON.parse(response.body)
+                rescue
+                    raise WSAPI::Exceptions::Unexpected.new("UNEXP00025")
+                end
+
                 return false if json_response["data"].nil?
                 return false if json_response["data"]["user"].nil?
                 return false if json_response["data"]["user"]["id"].nil?
@@ -140,20 +146,22 @@ class WSAPI
                 true
             end
 
-            def renew
-                return false if is_active?
+            def renew(skip_initial_check: false)
+                if !skip_initial_check
+                    return false if is_active?
+                end
 
                 url = "https://weibo.com"
                 response = @conn.get(url);
-                raise WSAPI::Exceptions::Unexpected.new("UNEXP00025","status: #{response.status}") if response.status!=200
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00026","status: #{response.status}") if response.status!=200
 
                 url = WSAPI::Util::String.simple_parse(response.body,'location.replace("','");')
-                raise WSAPI::Exceptions::Unexpected.new("UNEXP00026") if url.nil?
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00027") if url.nil?
 
                 headers = {"referer" => "https://login.sina.com.cn/"}
                 response = @conn.get(url,headers: headers);
-                raise WSAPI::Exceptions::Unexpected.new("UNEXP00027","status: #{response.status}") if response.status!=200
-                raise WSAPI::Exceptions::Unexpected.new("UNEXP00028") if !is_active?
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00028","status: #{response.status}") if response.status!=200
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00029") if !is_active?
             
                 return true
             end
