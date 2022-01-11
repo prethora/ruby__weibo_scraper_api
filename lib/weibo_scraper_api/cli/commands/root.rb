@@ -8,8 +8,7 @@ class WSAPI
                 def initialize
                     @command_classes = {
 						"accounts" => Accounts,
-                        "configure" => Configure,
-                        "keepalive" => KeepAlive
+                        "configure" => Configure
 					}
                 end
 
@@ -38,8 +37,6 @@ USAGE
 COMMANDS
     accounts            #{@command_classes["accounts"].new.lcase_description}
     configure           #{@command_classes["configure"].new.lcase_description}
-    keepalive           a long-running process to keep account sessions alive 
-                        (should be run as a daemon)
 
 OPTIONS
     -h|--help           print this help page

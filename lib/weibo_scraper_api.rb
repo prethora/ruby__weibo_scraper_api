@@ -123,10 +123,23 @@ class WSAPI
                 conn = session.conn
             else
                 return response["data"]["data"]
-            end
+            end            
         end
 
         raise WSAPI::Exceptions::Unexpected.new("UNEXP00048")
+    end
+
+    def keep_alive
+        renewed = []
+        data = @config.get_data
+        data.get_accounts.each do |account_name|
+            version,session = @sm.get_session account_name
+            if !session.is_active?
+                @sm.get_session(account_name,renewFrom: version)
+                renewed << account_name
+            end
+        end
+        renewed
     end
 
     private 

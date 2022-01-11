@@ -6,13 +6,11 @@ class WSAPI
         class Config
             attr_accessor :data_dir
             attr_accessor :user_agent
-            attr_accessor :keep_alive_interval_days
             attr_accessor :config_path
 
             def initialize(config_path = nil)
                 @data_dir = ""
                 @user_agent = ""
-                @keep_alive_interval_days = 0
                 @config_path = File.expand_path(config_path || ENV["WSAPI_CONFIG_PATH"] || "~/.wsapi/config.yaml")
 
                 if File.exist? @config_path
@@ -48,7 +46,6 @@ class WSAPI
 
                 @data_dir = values["data_dir"]
                 @user_agent = values["user_agent"]
-                @keep_alive_interval_days = values["keep_alive_interval_days"]
 
                 validate
             end 
@@ -64,8 +61,7 @@ class WSAPI
             def default_config
                 {
                     "data_dir" => "./data",
-                    "user_agent" => "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36",
-                    "keep_alive_interval_days" => 5.0
+                    "user_agent" => "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36"
                 }
             end
 
@@ -73,11 +69,9 @@ class WSAPI
                 dc = default_config
                 @data_dir = dc["data_dir"] if @data_dir.nil?
                 @user_agent = dc["user_agent"] if @user_agent.nil?
-                @keep_alive_interval_days = dc["keep_alive_interval_days"] if @keep_alive_interval_days.nil?
                 
                 raise StandardError.new("config file is invalid - data_dir is expected to be a non-empty string") if !@data_dir.is_a?(String) || @data_dir.empty?
                 raise StandardError.new("config file is invalid - user_agent is expected to be a non-empty string") if !@user_agent.is_a?(String) || @user_agent.empty?
-                raise StandardError.new("config file is invalid - keep_alive_interval_days is expected to be a number greater than or equal to one") if !@keep_alive_interval_days.is_a?(Numeric) || @keep_alive_interval_days<=1
             end
 
             def save
@@ -91,8 +85,7 @@ class WSAPI
             def to_s
                 {
                     "data_dir" => @data_dir,
-                    "user_agent" => @user_agent,
-                    "keep_alive_interval_days" => @keep_alive_interval_days
+                    "user_agent" => @user_agent
                 }.to_yaml                
             end
         end

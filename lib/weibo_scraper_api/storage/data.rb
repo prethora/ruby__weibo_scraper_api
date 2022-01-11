@@ -18,7 +18,7 @@ class WSAPI
             end
 
             def get_accounts                
-                Dir.entries(@data_accounts_path).select { |f| WSAPI::Util::Storage::ConcurrentFile.concurrent_file?(File.join(@data_accounts_path,f)) && !(/^[a-zA-Z0-9\._-]+$/ =~ f).nil? }
+                Dir.entries(@data_accounts_path).select { |f| WSAPI::Util::Storage::ConcurrentFile.concurrent_file?(File.join(@data_accounts_path,f)) && !(/^[a-zA-Z0-9\._-]+$/ =~ f).nil? }.sort
             end
 
             def get_account_path(name)

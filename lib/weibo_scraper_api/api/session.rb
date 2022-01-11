@@ -9,10 +9,10 @@ class WSAPI
         class Session
             attr_accessor :conn
 
-            def initialize()
+            def initialize(config)
                 @jar = HTTP::CookieJar.new
-                # @conn = WSAPI::Util::HttpClient.new(jar:@jar,follow_redirects: true,log: true)
-                @conn = WSAPI::Util::HttpClient.new(jar:@jar,follow_redirects: true)
+                # @conn = WSAPI::Util::HttpClient.new(jar:@jar,user_agent: config.user_agent,follow_redirects: true,log: true)
+                @conn = WSAPI::Util::HttpClient.new(jar:@jar,user_agent: config.user_agent,follow_redirects: true)
                 yield self if block_given?
             end
 

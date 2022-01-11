@@ -9,7 +9,7 @@ class WSAPI
 
             def add_account(name)
                 account_path = @data.get_account_path(name)
-                session = WSAPI::API::Session.new
+                session = WSAPI::API::Session.new(@config)
                 session.login
                 cf = WSAPI::Util::Storage::ConcurrentFile.new(account_path)
                 cf.write(session.to_yaml)
@@ -28,7 +28,7 @@ class WSAPI
 
                 return @session_cache[name] if @session_cache.key?(name) && @session_cache[name][0]==version
 
-                session = WSAPI::API::Session.new
+                session = WSAPI::API::Session.new(@config)
                 session.load file_path
 
                 @session_cache[name] = [version,session]
@@ -37,7 +37,7 @@ class WSAPI
             private
 
             def get_renewed_session(name,cf,file_path)
-                session = WSAPI::API::Session.new
+                session = WSAPI::API::Session.new(@config)
                 session.load file_path
                 session.renew(skip_initial_check: true)
                 cf.write(session.to_yaml)

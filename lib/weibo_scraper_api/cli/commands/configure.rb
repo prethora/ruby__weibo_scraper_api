@@ -7,15 +7,16 @@ class WSAPI
         module Commands
             class Configure < Base
                 def run(argv)                    
-                    WSAPI.new(account_name: "stale") do |wsapi|
-                        # p wsapi.profile 2125613987
-                        # puts wsapi.fans(2125613987,"2").to_json
-                        # puts wsapi.profile(5471534537).to_json
-                        # puts wsapi.fans(5471534537).to_json
-                        # puts wsapi.friends(5471534537).to_json
-                        # p wsapi.friends 2125613987
-                        puts wsapi.statuses(2125613987,"4724034534640347kp6").to_json
-                    end
+                    # WSAPI.new(account_name: "stale") do |wsapi|
+                    #     # p wsapi.keep_alive
+                    #     p wsapi.profile 2125613987
+                    #     # puts wsapi.fans(2125613987,"2").to_json
+                    #     # puts wsapi.profile(5471534537).to_json
+                    #     # puts wsapi.fans(5471534537).to_json
+                    #     # puts wsapi.friends(5471534537).to_json
+                    #     # p wsapi.friends 2125613987
+                    #     # puts wsapi.statuses(2125613987,"4724034534640347kp6").to_json
+                    # end
 
                     # fetcher = lambda do |uri,vv|
                     #     puts "Started fetching #{uri}"
@@ -32,7 +33,7 @@ class WSAPI
 
                     # p [thread1.value,thread2.value]
 
-                    return
+                    # return
                     return show_help if argv.length==1 && ["-h","--help"].include?(argv[0])
 
                     options = {}
@@ -61,12 +62,6 @@ class WSAPI
                         user_agent = STDIN.gets.chomp
                         user_agent = config.user_agent if user_agent==""
                         config.user_agent = user_agent
-
-                        caption = bright("keep_alive_interval_days")
-                        print "#{caption} (#{config.keep_alive_interval_days}): "
-                        keep_alive_interval_days = STDIN.gets.chomp
-                        keep_alive_interval_days = config.keep_alive_interval_days if keep_alive_interval_days==""
-                        config.keep_alive_interval_days = keep_alive_interval_days.to_f
 
                         puts
 

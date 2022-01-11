@@ -7,7 +7,8 @@ class WSAPI
                 def initialize
                     @command_classes = {
                         "add" => Add,
-                        "ls" => List
+                        "ls" => List,
+                        "keep_alive" => KeepAlive
                     }    
                 end
 
@@ -32,8 +33,9 @@ USAGE
     wsapi accounts <option>
                     
 COMMANDS
-    add          #{@command_classes["add"].new.lcase_description}
-    ls           #{@command_classes["ls"].new.lcase_description}
+    add           #{@command_classes["add"].new.lcase_description}
+    ls            #{@command_classes["ls"].new.lcase_description}
+    keep_alive    #{@command_classes["keep_alive"].new.lcase_description}
                     
 OPTIONS
     -h|--help    print this help page
