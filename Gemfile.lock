@@ -3,16 +3,15 @@ PATH
   specs:
     weibo_scraper_api (0.0.1)
       faraday (~> 1.0)
-      faraday-cookie_jar
-      faraday_middleware
-      http-cookie
+      faraday-cookie_jar (~> 0.0)
+      faraday_middleware (~> 1.2)
+      http-cookie (~> 1.0)
     weibo_scraper_api_cli (0.0.1)
-      bundler
       faraday (~> 1.0)
-      faraday-cookie_jar
-      faraday_middleware
-      http-cookie
-      rainbow
+      faraday-cookie_jar (~> 0.0)
+      faraday_middleware (~> 1.2)
+      http-cookie (~> 1.0)
+      rainbow (~> 3.1)
 
 GEM
   remote: https://rubygems.org/
