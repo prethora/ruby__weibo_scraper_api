@@ -11,6 +11,7 @@ class WSAPI
             def initialize(config_path = nil)
                 @data_dir = ""
                 @user_agent = ""
+                ENV["WSAPI_CONFIG_PATH"] = nil if ENV["WSAPI_CONFIG_PATH"].is_a?(String) && ENV["WSAPI_CONFIG_PATH"].strip==""
                 @config_path = File.expand_path(config_path || ENV["WSAPI_CONFIG_PATH"] || "~/.wsapi/config.yaml")
 
                 if File.exist? @config_path

@@ -19,7 +19,7 @@ class WSAPI
 
             def get_session(name,renewFrom: nil)
                 account_path = @data.get_account_path(name)
-                raise ArgumentError("account '#{name}' not found") if !WSAPI::Util::Storage::ConcurrentFile.concurrent_file? account_path
+                raise ArgumentError.new("account '#{name}' not found") if !WSAPI::Util::Storage::ConcurrentFile.concurrent_file? account_path
 
                 cf = WSAPI::Util::Storage::ConcurrentFile.new(account_path)
                 version,file_path = cf.info

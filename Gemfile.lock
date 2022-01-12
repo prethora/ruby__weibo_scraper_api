@@ -51,6 +51,7 @@ GEM
       domain_name (~> 0.5)
     multipart-post (2.1.1)
     rainbow (3.1.1)
+    rake (13.0.6)
     ruby2_keywords (0.0.5)
     unf (0.1.4)
       unf_ext
@@ -61,6 +62,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  rake
   weibo_scraper_api!
   weibo_scraper_api_cli!
 
