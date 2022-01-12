@@ -30,3 +30,9 @@ task "uninstall-cli" do
     puts "$ #{command}"
     system command
 end
+
+task :test do
+    command = "bundle exec rspec --format doc"
+    puts "$ #{command}"
+    system command
+end
