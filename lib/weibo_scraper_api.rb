@@ -12,7 +12,6 @@ class WSAPI
     end
 
     def profile(uid,account_name: nil)
-        puts uid
         uid = WSAPI::Util::Validations::String.positive_integer?(uid,"uid")
         account_name = WSAPI::Util::Validations::String.not_empty?(account_name || @account_name,"account_name")
         

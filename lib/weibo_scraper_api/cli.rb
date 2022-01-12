@@ -1,5 +1,5 @@
 require "weibo_scraper_api"
-require "weibo_scraper_api/cli/commands"
+Dir[File.join(__dir__,"cli","**","*.rb")].each {|l| require l}
 
 class WSAPI
     module CLI

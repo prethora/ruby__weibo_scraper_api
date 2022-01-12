@@ -2,6 +2,11 @@ PATH
   remote: .
   specs:
     weibo_scraper_api (0.0.1)
+      faraday (~> 1.0)
+      faraday-cookie_jar
+      faraday_middleware
+      http-cookie
+    weibo_scraper_api_cli (0.0.1)
       bundler
       faraday (~> 1.0)
       faraday-cookie_jar
@@ -14,16 +19,17 @@ GEM
   specs:
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
-    faraday (1.8.0)
+    faraday (1.9.3)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
-      faraday-httpclient (~> 1.0.1)
+      faraday-httpclient (~> 1.0)
+      faraday-multipart (~> 1.0)
       faraday-net_http (~> 1.0)
-      faraday-net_http_persistent (~> 1.1)
+      faraday-net_http_persistent (~> 1.0)
       faraday-patron (~> 1.0)
       faraday-rack (~> 1.0)
-      multipart-post (>= 1.2, < 3)
+      faraday-retry (~> 1.0)
       ruby2_keywords (>= 0.0.4)
     faraday-cookie_jar (0.0.7)
       faraday (>= 0.8.0)
@@ -32,16 +38,19 @@ GEM
     faraday-em_synchrony (1.0.0)
     faraday-excon (1.1.0)
     faraday-httpclient (1.0.1)
+    faraday-multipart (1.0.3)
+      multipart-post (>= 1.2, < 3)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
+    faraday-retry (1.0.3)
     faraday_middleware (1.2.0)
       faraday (~> 1.0)
     http-cookie (1.0.4)
       domain_name (~> 0.5)
     multipart-post (2.1.1)
-    rainbow (3.0.0)
+    rainbow (3.1.1)
     ruby2_keywords (0.0.5)
     unf (0.1.4)
       unf_ext
@@ -53,6 +62,7 @@ PLATFORMS
 
 DEPENDENCIES
   weibo_scraper_api!
+  weibo_scraper_api_cli!
 
 BUNDLED WITH
    2.3.4
