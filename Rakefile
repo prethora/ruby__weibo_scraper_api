@@ -4,6 +4,7 @@ $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
 require "weibo_scraper_api/version"
 
 task :gem => :build
+task :gems => :build
 task :build do
     command = "mkdir -p dist/gems"
     puts "$ #{command}"
@@ -20,6 +21,12 @@ end
 
 task "install-cli" do
     command = "gem install dist/gems/weibo_scraper_api_cli-#{WSAPI::VERSION}.gem"
+    puts "$ #{command}"
+    system command
+end
+
+task "uninstall-cli" do
+    command = "gem uninstall weibo_scraper_api_cli"
     puts "$ #{command}"
     system command
 end

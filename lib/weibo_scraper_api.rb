@@ -11,6 +11,13 @@ class WSAPI
         yield self if block_given?
     end
 
+    def my_uid(account_name: nil)
+        account_name = WSAPI::Util::Validations::String.not_empty?(account_name || @account_name,"account_name")
+        
+        version,session = @sm.get_session account_name
+        session.internal_uid
+    end
+
     def profile(uid,account_name: nil)
         uid = WSAPI::Util::Validations::String.positive_integer?(uid,"uid")
         account_name = WSAPI::Util::Validations::String.not_empty?(account_name || @account_name,"account_name")

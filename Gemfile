@@ -6,3 +6,4 @@ Dir.glob("*.gemspec",base: File.expand_path("..",__FILE__)).each do |gemspec_pat
 end
 
 gem 'rake'
+gem 'rspec'
