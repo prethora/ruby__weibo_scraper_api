@@ -11,6 +11,8 @@ class WSAPI
     module Util
         class HttpClient
             def initialize(jar: HTTP::CookieJar.new,user_agent: nil,follow_redirects: false,log: false,logger: nil,timeout: 15.0,retries: 0)
+                @jar = jar
+                @follow_redirects = follow_redirects
                 @timeout = timeout
                 @retries = retries
                 @logger = nil
@@ -33,21 +35,29 @@ class WSAPI
                     "accept-language" => "en-US,en;q=0.9,fr-FR;q=0.8,fr;q=0.7,es;q=0.6",
                 }
 
-                @conn = Faraday.new do |builder|
-                    builder.options.timeout = timeout
-                    builder.use FaradayMiddleware::FollowRedirects if follow_redirects
-                    builder.use :cookie_jar,jar: jar
-                    builder.response :logger,@logger if !@logger.nil?
-                    builder.adapter Faraday.default_adapter
-                end                  
+                # @conn = Faraday.new do |builder|
+                #     builder.options.timeout = timeout
+                #     builder.use FaradayMiddleware::FollowRedirects if follow_redirects
+                #     builder.use :cookie_jar,jar: jar
+                #     builder.response :logger,@logger if !@logger.nil?
+                #     builder.adapter Faraday.default_adapter
+                # end                  
             end
 
             def get(url,headers: {})
+                conn = Faraday.new do |builder|
+                    builder.options.timeout = @timeout
+                    builder.use FaradayMiddleware::FollowRedirects if @follow_redirects
+                    builder.use :cookie_jar,jar: @jar
+                    builder.response :logger,@logger if !@logger.nil?
+                    builder.adapter Faraday.default_adapter
+                end                  
+
                 log_info("HTTP_CLIENT: METHOD(GET) URL(#{url}) HEADERS(#{headers}) TIMEOUT(#{@timeout}) RETRIES(#{@retries})")
                 headers = @baseHeaders.merge(headers)
                 for i in 1..@retries+1
                     begin
-                        response = @conn.get(url,{},headers)
+                        response = conn.get(url,{},headers)
                         return response if response.status>=200 && response.status<400
                         return response if i==@retries+1
                         log_info("HTTP_CLIENT: cause of retrial: status: #{response.status}")

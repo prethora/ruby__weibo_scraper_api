@@ -8,17 +8,17 @@ class WSAPI
         module Commands
             class Configure < Base
                 def run(argv)                    
-                    # strio = StringIO.new
-                    # logger = Logger.new(strio)
-                    # conn = WSAPI::Util::HttpClient.new(log: true,retries: 3,logger: logger)
-                    # begin
-                    #     conn.get("https://www.googlesdsjdjksdjsk.com")
-                    #     # conn.get("https://www.google.com:81")
-                    # rescue
-                    #     puts strio.string
-                    #     raise
-                    # end
-                    # return
+                    strio = StringIO.new
+                    logger = Logger.new(strio)
+                    conn = WSAPI::Util::HttpClient.new(log: true,retries: 3,logger: logger)
+                    begin
+                        conn.get("https://www.googlesdsjdjksdjsk.com")
+                        # conn.get("https://www.google.com:81")
+                    rescue
+                        puts strio.string
+                        raise
+                    end
+                    return
                     return show_help if argv.length==1 && ["-h","--help"].include?(argv[0])
 
                     options = {}
