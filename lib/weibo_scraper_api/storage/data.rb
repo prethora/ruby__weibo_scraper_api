@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'date'
 
 class WSAPI
     module Storage
@@ -9,6 +10,7 @@ class WSAPI
             def initialize(data_path)
                 @data_path = data_path
                 @data_accounts_path = File.join(@data_path,"accounts")
+                @data_logs_path = File.join(@data_path,"logs")
 
                 begin
                     FileUtils.mkdir_p(@data_accounts_path)
@@ -23,6 +25,15 @@ class WSAPI
 
             def get_account_path(name)
                 File.join(@data_accounts_path,name)
+            end
+
+            def get_log_path(name)
+                File.join(@data_logs_path,name)
+            end
+
+            def create_log(exception,log_content)
+                log_file_path = get_log_path("#{DateTime.now.to_s}-#{exception.class.name}.log")
+                File.open(log_file_path,"w") {|f| f.write(log_file_path)}
             end
         end
     end

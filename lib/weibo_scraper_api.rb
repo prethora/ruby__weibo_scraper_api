@@ -2,6 +2,7 @@ require "weibo_scraper_api/api"
 require "weibo_scraper_api/storage"
 require "weibo_scraper_api/util"
 require "weibo_scraper_api/exceptions"
+require 'stringio'
 
 class WSAPI
     def initialize(config_path: nil,account_name: nil)
@@ -19,34 +20,53 @@ class WSAPI
     end
 
     def profile(uid,account_name: nil)
+        strio = StringIO.new
+        logger = Logger.new(strio)
+        strio_info = StringIO.new
+        logger_info = Logger.new(strio_info)
+        strio_detail = StringIO.new
+        logger_detail = Logger.new(strio_detail)        
+
         uid = WSAPI::Util::Validations::String.positive_integer?(uid,"uid")
         account_name = WSAPI::Util::Validations::String.not_empty?(account_name || @account_name,"account_name")
-        
-        version,session = @sm.get_session account_name
-        conn = session.conn
 
-        for i in 1..2 do
-            r_info,r_detail = [
-                Thread.new { request(conn,uid,"https://weibo.com/ajax/profile/info?uid=#{uid}","data") },
-                Thread.new { request(conn,uid,"https://weibo.com/ajax/profile/detail?uid=#{uid}","data") }
-            ].map(&:value)
+        begin
+            logger.info("WSAPI#profile: uid(#{uid}) account_name(#{account_name})")
             
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00030")  if r_info["type"]=="error" && r_info["message"]=="WRONG_RESPONSE"
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00031")  if r_info["type"]=="error" && r_info["message"]=="INVALID_JSON"
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00032")  if r_info["type"]=="error" && r_info["message"]=="UNKNOWN_RESPONSE"
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00033")  if r_detail["type"]=="error" && r_detail["message"]=="WRONG_RESPONSE"
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00034")  if r_detail["type"]=="error" && r_detail["message"]=="INVALID_JSON"
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00035")  if r_detail["type"]=="error" && r_detail["message"]=="UNKNOWN_RESPONSE"
-            
-            if is_response_stale?(r_info) || is_response_stale?(r_detail)
-                version,session = @sm.get_session(account_name,renewFrom: version)
-                conn = session.conn
-            else
-                return {"info" => r_info["data"]["data"],"detail" => r_detail["data"]["data"]}
+            version,session = @sm.get_session account_name
+            conn = session.conn
+
+            for i in 1..2 do
+                r_info,r_detail = [
+                    Thread.new { request(conn,uid,"https://weibo.com/ajax/profile/info?uid=#{uid}","data",logger: logger_info) },
+                    Thread.new { request(conn,uid,"https://weibo.com/ajax/profile/detail?uid=#{uid}","data",logger: logger_detail) }
+                ].map(&:value)
+                
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00030")  if r_info["type"]=="error" && r_info["message"]=="WRONG_RESPONSE"
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00031")  if r_info["type"]=="error" && r_info["message"]=="INVALID_JSON"
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00032")  if r_info["type"]=="error" && r_info["message"]=="UNKNOWN_RESPONSE"
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00033")  if r_detail["type"]=="error" && r_detail["message"]=="WRONG_RESPONSE"
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00034")  if r_detail["type"]=="error" && r_detail["message"]=="INVALID_JSON"
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00035")  if r_detail["type"]=="error" && r_detail["message"]=="UNKNOWN_RESPONSE"
+                
+                if is_response_stale?(r_info) || is_response_stale?(r_detail)
+                    version,session = @sm.get_session(account_name,renewFrom: version,logger: logger)
+                    conn = session.conn
+                else
+                    # raise StandardError.new("bogus")
+                    return {"info" => r_info["data"]["data"],"detail" => r_detail["data"]["data"]}
+                end
             end
-        end
 
-        raise WSAPI::Exceptions::Unexpected.new("UNEXP00036")        
+            raise WSAPI::Exceptions::Unexpected.new("UNEXP00036")        
+
+        rescue => e            
+            log_content = [strio.string,strio_info.string,strio_detail.string].join("\n")
+            puts "log_content"
+            puts "-----------"
+            puts log_content
+            raise
+        end
     end
 
     def fans(uid,page = 1,account_name: nil)
@@ -154,9 +174,9 @@ class WSAPI
         response["type"]=="error" && response["message"]=="STALE_SESSION"
     end
 
-    def request(conn,uid,url,key_check)
+    def request(conn,uid,url,key_check,logger: nil)
         headers = {"referer" => "https://weibo.com/u/#{uid}","accept" => "application/json, text/plain, */*"}
-        response = conn.get(url,headers: headers);
+        response = conn.get(url,headers: headers,logger: logger);
         return {"type" => "error","message" => "WRONG_RESPONSE"} if response.status!=200
 
         begin
@@ -167,7 +187,6 @@ class WSAPI
 
         return {"type" => "error","message" => "STALE_SESSION"} if json_response["ok"]==-100 && json_response["url"].is_a?(String) && json_response["url"].include?("/login.php?")
         return {"type" => "success","data" => json_response} if json_response["ok"]==1 && !json_response[key_check].nil?
-        # p ["unknown",json_response]
         return {"type" => "error","message" => "ACCOUNT_PRIVATE"} if json_response["ok"]==0 && json_response["statusCode"]==200 && json_response["relation_display"]==1
         return {"type" => "error","message" => "UNKNOWN_RESPONSE"}
     end

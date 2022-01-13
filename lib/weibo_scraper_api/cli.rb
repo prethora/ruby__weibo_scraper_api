@@ -8,6 +8,7 @@ class WSAPI
                 WSAPI::CLI::Commands::Root.new.run ARGV
             rescue => e
                 puts "error: #{e.message}"
+                # raise
             end
         end
     end

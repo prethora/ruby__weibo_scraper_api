@@ -9,18 +9,20 @@ class WSAPI
             attr_accessor :conn
 
             def initialize(config)
-                @jar = HTTP::CookieJar.new
-                @conn = WSAPI::Util::HttpClient.new(jar:@jar,user_agent: config.user_agent,follow_redirects: true)
+                @jar = HTTP::CookieJar.new                
+                @conn = WSAPI::Util::HttpClient.new(jar:@jar,user_agent: config.user_agent,follow_redirects: true,timeout: config.request_timeout_seconds,retries: config.request_retries)
                 yield self if block_given?
             end
 
-            def is_active?
+            def is_active?(logger: nil)
+                logger.info("SESSION#is_active") if !logger.nil?
+
                 uid = internal_uid
                 raise WSAPI::Exceptions::InvalidInput.new("internal_id not found") if uid.nil?
 
                 url = "https://weibo.com/ajax/profile/info?uid=#{uid}"
                 headers = {"referer" => "https://weibo.com/u/#{uid}","accept" => "application/json, text/plain, */*"}
-                response = @conn.get(url,headers: headers);
+                response = @conn.get(url,headers: headers,logger: logger);
                 raise WSAPI::Exceptions::Unexpected.new("UNEXP00024","status: #{response.status}") if response.status!=200
 
                 begin
@@ -37,22 +39,24 @@ class WSAPI
                 true
             end
 
-            def renew(skip_initial_check: false)
+            def renew(skip_initial_check: false,logger: nil)
+                logger.info("SESSION#renew: skip_initial_check(#{skip_initial_check})") if !logger.nil?
+
                 if !skip_initial_check
-                    return false if is_active?
+                    return false if is_active?(logger: logger)
                 end
 
                 url = "https://weibo.com"
-                response = @conn.get(url);
+                response = @conn.get(url,logger: logger);
                 raise WSAPI::Exceptions::Unexpected.new("UNEXP00026","status: #{response.status}") if response.status!=200
 
                 url = WSAPI::Util::String.simple_parse(response.body,'location.replace("','");')
                 raise WSAPI::Exceptions::Unexpected.new("UNEXP00027") if url.nil?
 
                 headers = {"referer" => "https://login.sina.com.cn/"}
-                response = @conn.get(url,headers: headers);
+                response = @conn.get(url,headers: headers,logger: logger);
                 raise WSAPI::Exceptions::Unexpected.new("UNEXP00028","status: #{response.status}") if response.status!=200
-                raise WSAPI::Exceptions::Unexpected.new("UNEXP00029") if !is_active?
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00029") if !is_active?(logger: logger)
             
                 return true
             end
