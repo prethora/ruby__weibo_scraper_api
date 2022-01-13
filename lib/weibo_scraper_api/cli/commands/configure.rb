@@ -1,38 +1,23 @@
 require 'optparse'
 require 'weibo_scraper_api/cli/commands/base'
 require 'json'
+require 'stringio'
 
 class WSAPI
     module CLI
         module Commands
             class Configure < Base
                 def run(argv)                    
-                    # WSAPI.new(account_name: "stale") do |wsapi|
-                    #     # p wsapi.keep_alive
-                    #     p wsapi.profile 2125613987
-                    #     # puts wsapi.fans(2125613987,"2").to_json
-                    #     # puts wsapi.profile(5471534537).to_json
-                    #     # puts wsapi.fans(5471534537).to_json
-                    #     # puts wsapi.friends(5471534537).to_json
-                    #     # p wsapi.friends 2125613987
-                    #     # puts wsapi.statuses(2125613987,"4724034534640347kp6").to_json
+                    # strio = StringIO.new
+                    # logger = Logger.new(strio)
+                    # conn = WSAPI::Util::HttpClient.new(log: true,retries: 3,logger: logger)
+                    # begin
+                    #     conn.get("https://www.googlesdsjdjksdjsk.com")
+                    #     # conn.get("https://www.google.com:81")
+                    # rescue
+                    #     puts strio.string
+                    #     raise
                     # end
-
-                    # fetcher = lambda do |uri,vv|
-                    #     puts "Started fetching #{uri}"
-                    #     # puts open(uri).read
-                    #     puts "Stopped fetching #{uri}"
-                    #     [uri,vv]
-                    # end
-                      
-                    # thread1 = Thread.new("http://localhost:9292", "v1",&fetcher)
-                    # thread2 = Thread.new("http://localhost:9293", "v2",&fetcher)
-                      
-                    # # thread1.join
-                    # # thread2.join                    
-
-                    # p [thread1.value,thread2.value]
-
                     # return
                     return show_help if argv.length==1 && ["-h","--help"].include?(argv[0])
 
@@ -40,6 +25,7 @@ class WSAPI
                     begin
                         OptionParser.new do |opt|
                             add_config_option opt,options
+                            opt.on("-p","--print",TrueClass) { |o| options["print"] = o }
                         end.parse! argv							
 
                         raise StandardError.new("unexpected argument: #{argv[0]}") if !argv.empty?
@@ -49,6 +35,9 @@ class WSAPI
 
                     begin
                         config = WSAPI::Storage::Config.new(options["config-path"])
+
+                        return puts config if options["print"]
+
                         $stdout.sync = true
 
                         caption = bright("data_dir")
@@ -62,6 +51,34 @@ class WSAPI
                         user_agent = STDIN.gets.chomp
                         user_agent = config.user_agent if user_agent==""
                         config.user_agent = user_agent
+
+                        while true do
+                            caption = bright("request_timeout_seconds")
+                            print "#{caption} (#{config.request_timeout_seconds}): "
+                            request_timeout_seconds = STDIN.gets.chomp
+                            request_timeout_seconds = config.request_timeout_seconds.to_s if request_timeout_seconds==""
+                            request_timeout_seconds.strip!
+                            if (/^[0-9]+(?:\.[0-9]+)?$/=~request_timeout_seconds)==0 && request_timeout_seconds.to_f>=5
+                                config.request_timeout_seconds = request_timeout_seconds.to_f
+                                break
+                            else
+                                puts "error: invalid input, expecting a number greater or equal to 5"
+                            end                            
+                        end
+
+                        while true do
+                            caption = bright("request_retries")
+                            print "#{caption} (#{config.request_retries}): "
+                            request_retries = STDIN.gets.chomp
+                            request_retries = config.request_retries.to_s if request_retries==""
+                            request_retries.strip!
+                            if (/^[0-9]+$/=~request_retries)==0
+                                config.request_retries = request_retries.to_i
+                                break
+                            else
+                                puts "error: invalid input, expecting a non-negative integer"
+                            end                            
+                        end
 
                         puts
 
@@ -85,6 +102,10 @@ class WSAPI
                     end                    
                 end
 
+                def print_config
+
+                end
+
                 def description
                     "Configure the API data directory and other values"
                 end
@@ -95,7 +116,8 @@ USAGE
   wsapi configure [options]
   
 OPTIONS
-  -h|--help    show this help page
+  -p|--print    print the current configuration instead of editing it
+  -h|--help     show this help page
                     }.strip                
                 end
             end

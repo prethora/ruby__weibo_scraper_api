@@ -3,13 +3,20 @@ require 'faraday/net_http'
 require 'faraday-cookie_jar'
 require 'faraday_middleware'
 require 'http/cookie_jar'
+require 'logger'
 
 Faraday.default_adapter = :net_http
 
 class WSAPI
     module Util
         class HttpClient
-            def initialize(jar: HTTP::CookieJar.new,user_agent: nil,follow_redirects: false,log: false)
+            def initialize(jar: HTTP::CookieJar.new,user_agent: nil,follow_redirects: false,log: false,logger: nil,timeout: 15.0,retries: 0)
+                @timeout = timeout
+                @retries = retries
+                @logger = nil
+                if log
+                    @logger = logger.nil? ? Logger.new($stdout) : logger
+                end
                 @baseHeaders = {
                     "pragma" => "no-cache",
                     "cache-control" => "no-cache",
@@ -27,15 +34,33 @@ class WSAPI
                 }
 
                 @conn = Faraday.new do |builder|
+                    builder.options.timeout = timeout
                     builder.use FaradayMiddleware::FollowRedirects if follow_redirects
                     builder.use :cookie_jar,jar: jar
-                    builder.response :logger if log
+                    builder.response :logger,@logger if !@logger.nil?
                     builder.adapter Faraday.default_adapter
                 end                  
             end
 
             def get(url,headers: {})
-                @conn.get(url,{},@baseHeaders.merge(headers))
+                log_info("HTTP_CLIENT: METHOD(GET) URL(#{url}) HEADERS(#{headers}) TIMEOUT(#{@timeout}) RETRIES(#{@retries})")
+                headers = @baseHeaders.merge(headers)
+                for i in 1..@retries+1
+                    begin
+                        response = @conn.get(url,{},headers)
+                        return response if response.status>=200 && response.status<400
+                        return response if i==@retries+1
+                        log_info("HTTP_CLIENT: cause of retrial: status: #{response.status}")
+                    rescue => e
+                        raise e if i==@retries+1
+                        log_info("HTTP_CLIENT: cause of retrial: #{e}")
+                    end
+                    log_info("HTTP_CLIENT: retrial #{i} of #{@retries}")
+                end
+            end
+
+            def log_info(message)
+                @logger.info(message) if !@logger.nil?
             end
         end
     end
