@@ -1,4 +1,4 @@
-lib/weibo_scraper_api.rb 804f77213384df2c8824f07ba7807c282025d290
+lib/weibo_scraper_api.rb 32b1b8c0db96fff8842f60520fec5c6bf6941dfb
 lib/weibo_scraper_api/api.rb b694d0672c2b04a3174c4bcb0c3f012984a68b0c
 lib/weibo_scraper_api/cli.rb a8a5f8652cd4abe80d48426481cc6a31571f6f92
 lib/weibo_scraper_api/util.rb 8f98676cf520b66a4ce71d734e0cba65f53b0d2e
@@ -15,7 +15,7 @@ lib/weibo_scraper_api/cli/commands/base.rb 62181de5363248546e4fc26acea2a36738a01
 lib/weibo_scraper_api/cli/commands/root.rb 9b401866f872962e425620ff9b88225a1bad5ba9
 lib/weibo_scraper_api/cli/commands/accounts.rb 52fbdfb1447e2edda0f4f5d1fad45b9a30bde91a
 lib/weibo_scraper_api/exceptions/unexpected.rb eec5230883809fd135281f133c72ceb2e9e83d6c
-lib/weibo_scraper_api/cli/commands/configure.rb c8168d3139fb5420e45481a31ddaad63b58f5085
+lib/weibo_scraper_api/cli/commands/configure.rb fab31045ceda6ac94559836523a0eba4357c31a7
 lib/weibo_scraper_api/storage/session_manager.rb 5bb8c11fc44ef21a304df0cb2a1ea2f3e0b75c65
 lib/weibo_scraper_api/util/validations/string.rb b4c7d4e87e52b15c2577767334e941f6e8fb3b34
 lib/weibo_scraper_api/cli/commands/accounts/ls.rb dbae8010850f310b5cb48024316ae1e54962ec69

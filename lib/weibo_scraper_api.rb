@@ -6,6 +6,39 @@ require 'stringio'
 require 'logger'
 
 # The main API class which provides an interface to the weibo.com data.
+# 
+# Please see the +#Configuration+ and +#CLI+ sections from the +README.md+ file first, to better understand what
+# the +config_path+ and +account_name+ named arguments in these examples are for.
+# 
+# == Create an instance of the API interface
+# Using the default configuration path ( +~/.wsapi/config.yaml+ or the value of the +WSAPI_CONFIG_PATH+ environment value, if set).
+#   wsapi = WSAPI.new
+# Explicitly setting a configuration path.
+#   wsapi = WSAPI.new config_path: "/path/to/config.yaml"
+# Setting a default account to be used for all method calls (can be overridden in calls).
+#   wsapi = WSAPI.new account_name: "some_account"
+# Block notation.
+#   WSAPI.new do |wsapi|
+#     # ...
+#   end  
+# 
+# == Making requests
+#
+# Get a user profile (+account_name+ in this case must have been set in the constructor).
+#   res = wsapi.profile "2125613987"  # {"info" => {...},"detail" => {...}}
+# Get the first page of a user's friends (+account_name+ can be explicitly set per request as well)
+#   res = wsapi.friends "2125613987",account_name: "some_account"  # {"users" => [...],...}
+# Get the third page of a user's friends.
+#   res = wsapi.friends "2125613987",3  # {"users" => [...],...}
+# Get the first page of a user's fans.
+#   res = wsapi.fans "2125613987"  # {"users" => [...],...}
+# Get the first page of a user's statuses.
+#   res = wsapi.statuses "2125613987"  # {"list" => [...],"since_id" => "...",...}
+# Get the first and next page of a user's statuses.
+#   res1 = wsapi.statuses "2125613987"  # {"list" => [...],"since_id" => "...",...}
+#   if !res1["since_id"].empty?
+#     res2 = wsapi.statuses "2125613987",res1["since_id"]  # {"list" => [...],"since_id" => "...",...}
+#   end 
 class WSAPI
     # Returns a new instance of WSAPI.
     #
@@ -23,6 +56,7 @@ class WSAPI
     #
     # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
     # @return [String] the +uid+ of the selected account
+    # @raise [ArgumentError] if +account_name+ has not been set either in the constructor or the method call.
     def my_uid(account_name: nil)
         account_name = WSAPI::Util::Validations::String.not_empty?(account_name || @account_name,"account_name")
         
@@ -35,6 +69,8 @@ class WSAPI
     # @param [String|Integer] uid a +String+ or +Integer+ representation of the user's +uid+.
     # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
     # @return [Hash] +{'info' => ...,'detail' => ...}+
+    # @raise [ArgumentError] if +uid+ is not a +String+ or +Integer+ representation of a positive integer.
+    # @raise [ArgumentError] if +account_name+ has not been set either in the constructor or the method call.
     def profile(uid,account_name: nil)
         strio = StringIO.new
         logger = Logger.new(strio)
@@ -92,6 +128,9 @@ class WSAPI
     # @param [Integer] page the page number to request.
     # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
     # @return [Hash] +{'users' => [...],'total_number' => ...,'previous_cursor' => ...,'next_cursor' => ...}+
+    # @raise [ArgumentError] if +uid+ is not a +String+ or +Integer+ representation of a positive integer.
+    # @raise [ArgumentError] if +page+ is not a positive +Integer+.
+    # @raise [ArgumentError] if +account_name+ has not been set either in the constructor or the method call.
     def fans(uid,page = 1,account_name: nil)
         strio = StringIO.new
         logger = Logger.new(strio)
@@ -141,6 +180,9 @@ class WSAPI
     # @param [Integer] page the page number to request.
     # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
     # @return [Hash] +{'users' => [...],'total_number' => ...,'previous_cursor' => ...,'next_cursor' => ...}+
+    # @raise [ArgumentError] if +uid+ is not a +String+ or +Integer+ representation of a positive integer.
+    # @raise [ArgumentError] if +page+ is not a positive +Integer+.
+    # @raise [ArgumentError] if +account_name+ has not been set either in the constructor or the method call.
     def friends(uid,page = 1,account_name: nil)
         strio = StringIO.new
         logger = Logger.new(strio)
@@ -192,6 +234,9 @@ class WSAPI
     # @param [String] since_id a value included in each response which should be provided here in order to request the next page. If not provided, the first page is requested.
     # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
     # @return [Hash] +{'list' => [...],'since_id' => ...}+
+    # @raise [ArgumentError] if +uid+ is not a +String+ or +Integer+ representation of a positive integer.
+    # @raise [ArgumentError] if +since_id+ is set but not in the right format.
+    # @raise [ArgumentError] if +account_name+ has not been set either in the constructor or the method call.
     def statuses(uid,since_id = nil,account_name: nil)
         strio = StringIO.new
         logger = Logger.new(strio)

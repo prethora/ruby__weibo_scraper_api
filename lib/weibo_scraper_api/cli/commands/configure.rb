@@ -8,6 +8,12 @@ class WSAPI
         module Commands
             class Configure < Base
                 def run(argv)     
+                    WSAPI.new do |wsapi|
+                        p wsapi
+                    end                    
+                    # wsapi = WSAPI.new config_path: "/home/mecrogenesis/Organizations/co.prethora/@ruby/weibo_scraper_api/config.yaml",account_name: "bob"
+                    # p wsapi
+                    return
                     return show_help if argv.length==1 && ["-h","--help"].include?(argv[0])
 
                     options = {}
