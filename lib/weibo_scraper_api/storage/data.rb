@@ -39,7 +39,7 @@ class WSAPI
 
             def create_log(exception,method_name,log_content)
                 log_file_path = get_log_path("#{DateTime.now.to_s}-#{method_name}-#{exception.class.name}.log")
-                File.open(log_file_path,"w") {|f| f.write(log_content)}
+                File.open(log_file_path,"w:UTF-8") {|f| f.write(log_content)}
             end
         end
     end

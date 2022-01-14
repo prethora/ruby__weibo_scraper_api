@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: WSAPI
+  
+    &mdash; Documentation by YARD 0.9.27
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "WSAPI";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index (W)</a> &raquo;
+    
+    
+    <span class="title">WSAPI</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: WSAPI
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">WSAPI</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/weibo_scraper_api.rb<span class="defines">,<br />
+  lib/weibo_scraper_api/cli.rb,<br /> lib/weibo_scraper_api/version.rb,<br /> lib/weibo_scraper_api/api/session.rb,<br /> lib/weibo_scraper_api/storage/data.rb,<br /> lib/weibo_scraper_api/storage/config.rb,<br /> lib/weibo_scraper_api/cli/api/session.rb,<br /> lib/weibo_scraper_api/util/http_client.rb,<br /> lib/weibo_scraper_api/cli/commands/base.rb,<br /> lib/weibo_scraper_api/cli/commands/root.rb,<br /> lib/weibo_scraper_api/cli/commands/accounts.rb,<br /> lib/weibo_scraper_api/exceptions/unexpected.rb,<br /> lib/weibo_scraper_api/cli/commands/configure.rb,<br /> lib/weibo_scraper_api/storage/session_manager.rb,<br /> lib/weibo_scraper_api/util/validations/string.rb,<br /> lib/weibo_scraper_api/cli/commands/accounts/ls.rb,<br /> lib/weibo_scraper_api/exceptions/invalid_input.rb,<br /> lib/weibo_scraper_api/util/string/gen_rand_key.rb,<br /> lib/weibo_scraper_api/util/string/simple_parse.rb,<br /> lib/weibo_scraper_api/util/validations/integer.rb,<br /> lib/weibo_scraper_api/cli/commands/accounts/add.rb,<br /> lib/weibo_scraper_api/util/storage/concurrent_file.rb,<br /> lib/weibo_scraper_api/cli/commands/accounts/keep_alive.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="WSAPI/API.html" title="WSAPI::API (module)">API</a></span>, <span class='object_link'><a href="WSAPI/CLI.html" title="WSAPI::CLI (module)">CLI</a></span>, <span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span>, <span class='object_link'><a href="WSAPI/Storage.html" title="WSAPI::Storage (module)">Storage</a></span>, <span class='object_link'><a href="WSAPI/Util.html" title="WSAPI::Util (module)">Util</a></span>
+    
+  
+    
+  
+</p>
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="VERSION-constant" class="">VERSION =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.0.1</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#fans-instance_method" title="#fans (instance method)">#<strong>fans</strong>(uid, page = 1, account_name: nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#friends-instance_method" title="#friends (instance method)">#<strong>friends</strong>(uid, page = 1, account_name: nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(config_path: nil, account_name: nil) {|_self| ... } &#x21d2; WSAPI </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A new instance of WSAPI.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#keep_alive-instance_method" title="#keep_alive (instance method)">#<strong>keep_alive</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#my_uid-instance_method" title="#my_uid (instance method)">#<strong>my_uid</strong>(account_name: nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#profile-instance_method" title="#profile (instance method)">#<strong>profile</strong>(uid, account_name: nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#statuses-instance_method" title="#statuses (instance method)">#<strong>statuses</strong>(uid, since_id = nil, account_name: nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(config_path: nil, account_name: nil) {|_self| ... } &#x21d2; <tt><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a new instance of WSAPI.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Yields:</p>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>_self</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Yield Parameters:</p>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>_self</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the object that the method was called on</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11
+12
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/weibo_scraper_api.rb', line 9</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>config_path:</span> <span class='kw'>nil</span><span class='comma'>,</span><span class='label'>account_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='ivar'>@account_name</span> <span class='op'>=</span> <span class='id identifier rubyid_account_name'>account_name</span>
+    <span class='ivar'>@config</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Storage.html" title="WSAPI::Storage (module)">Storage</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Storage/Config.html" title="WSAPI::Storage::Config (class)">Config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Storage/Config.html#initialize-instance_method" title="WSAPI::Storage::Config#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span>
+    <span class='ivar'>@config_data</span> <span class='op'>=</span> <span class='ivar'>@config</span><span class='period'>.</span><span class='id identifier rubyid_get_data'>get_data</span>
+    <span class='ivar'>@sm</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Storage.html" title="WSAPI::Storage (module)">Storage</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Storage/SessionManager.html" title="WSAPI::Storage::SessionManager (class)">SessionManager</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Storage/SessionManager.html#initialize-instance_method" title="WSAPI::Storage::SessionManager#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='ivar'>@config</span><span class='rparen'>)</span>
+    <span class='kw'>yield</span> <span class='kw'>self</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="fans-instance_method">
+  
+    #<strong>fans</strong>(uid, page = 1, account_name: nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/weibo_scraper_api.rb', line 72</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_fans'>fans</span><span class='lparen'>(</span><span class='id identifier rubyid_uid'>uid</span><span class='comma'>,</span><span class='id identifier rubyid_page'>page</span> <span class='op'>=</span> <span class='int'>1</span><span class='comma'>,</span><span class='label'>account_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_strio'>strio</span> <span class='op'>=</span> <span class='const'>StringIO</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='id identifier rubyid_logger'>logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_strio'>strio</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_uid'>uid</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util.html" title="WSAPI::Util (module)">Util</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations.html" title="WSAPI::Util::Validations (module)">Validations</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations/String.html" title="WSAPI::Util::Validations::String (module)">String</a></span></span><span class='period'>.</span><span class='id identifier rubyid_positive_integer?'><span class='object_link'><a href="WSAPI/Util/Validations/String.html#positive_integer%3F-class_method" title="WSAPI::Util::Validations::String.positive_integer? (method)">positive_integer?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_uid'>uid</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>uid</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_page'>page</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util.html" title="WSAPI::Util (module)">Util</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations.html" title="WSAPI::Util::Validations (module)">Validations</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations/Integer.html" title="WSAPI::Util::Validations::Integer (module)">Integer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_positive_integer?'><span class='object_link'><a href="WSAPI/Util/Validations/Integer.html#positive_integer%3F-class_method" title="WSAPI::Util::Validations::Integer.positive_integer? (method)">positive_integer?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_page'>page</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>page</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_account_name'>account_name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util.html" title="WSAPI::Util (module)">Util</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations.html" title="WSAPI::Util::Validations (module)">Validations</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations/String.html" title="WSAPI::Util::Validations::String (module)">String</a></span></span><span class='period'>.</span><span class='id identifier rubyid_not_empty?'><span class='object_link'><a href="WSAPI/Util/Validations/String.html#not_empty%3F-class_method" title="WSAPI::Util::Validations::String.not_empty? (method)">not_empty?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_account_name'>account_name</span> <span class='op'>||</span> <span class='ivar'>@account_name</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>account_name</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    
+    <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WSAPI#fans: uid(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uid'>uid</span><span class='embexpr_end'>}</span><span class='tstring_content'>) page(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_page'>page</span><span class='embexpr_end'>}</span><span class='tstring_content'>) account_name(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_account_name'>account_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+    <span class='kw'>begin</span>
+        <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='id identifier rubyid_session'>session</span> <span class='op'>=</span> <span class='ivar'>@sm</span><span class='period'>.</span><span class='id identifier rubyid_get_session'>get_session</span> <span class='id identifier rubyid_account_name'>account_name</span>
+        <span class='id identifier rubyid_conn'>conn</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_conn'>conn</span>
+
+        <span class='kw'>for</span> <span class='id identifier rubyid_i'>i</span> <span class='kw'>in</span> <span class='int'>1</span><span class='op'>..</span><span class='int'>2</span> <span class='kw'>do</span>
+            <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='id identifier rubyid_conn'>conn</span><span class='comma'>,</span><span class='id identifier rubyid_uid'>uid</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://weibo.com/ajax/friendships/friends?relate=fans&amp;page=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_page'>page</span><span class='embexpr_end'>}</span><span class='tstring_content'>&amp;uid=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uid'>uid</span><span class='embexpr_end'>}</span><span class='tstring_content'>&amp;type=fans</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>users</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='label'>logger:</span> <span class='id identifier rubyid_logger'>logger</span><span class='rparen'>)</span>
+            
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00037</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>  <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WRONG_RESPONSE</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00038</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>  <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INVALID_JSON</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00039</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>  <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNKNOWN_RESPONSE</span><span class='tstring_end'>&quot;</span></span>
+            <span class='kw'>return</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>users</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>total_number</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>private</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ACCOUNT_PRIVATE</span><span class='tstring_end'>&quot;</span></span>
+            
+            <span class='kw'>if</span> <span class='id identifier rubyid_is_response_stale?'>is_response_stale?</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
+                <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='id identifier rubyid_session'>session</span> <span class='op'>=</span> <span class='ivar'>@sm</span><span class='period'>.</span><span class='id identifier rubyid_get_session'>get_session</span><span class='lparen'>(</span><span class='id identifier rubyid_account_name'>account_name</span><span class='comma'>,</span><span class='label'>renewFrom:</span> <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='label'>logger:</span> <span class='id identifier rubyid_logger'>logger</span><span class='rparen'>)</span>
+                <span class='id identifier rubyid_conn'>conn</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_conn'>conn</span>
+            <span class='kw'>else</span>
+                <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ok</span><span class='tstring_end'>&quot;</span></span>
+                <span class='kw'>return</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+            <span class='kw'>end</span>
+        <span class='kw'>end</span>
+
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00040</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+        <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+        <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_backtrace'>backtrace</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='ivar'>@config</span><span class='period'>.</span><span class='id identifier rubyid_get_log_data'>get_log_data</span><span class='period'>.</span><span class='id identifier rubyid_create_log'>create_log</span> <span class='id identifier rubyid_e'>e</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WSAPI.fans</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_strio'>strio</span><span class='period'>.</span><span class='id identifier rubyid_string'>string</span>
+        <span class='id identifier rubyid_raise'>raise</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="friends-instance_method">
+  
+    #<strong>friends</strong>(uid, page = 1, account_name: nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/weibo_scraper_api.rb', line 112</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_friends'>friends</span><span class='lparen'>(</span><span class='id identifier rubyid_uid'>uid</span><span class='comma'>,</span><span class='id identifier rubyid_page'>page</span> <span class='op'>=</span> <span class='int'>1</span><span class='comma'>,</span><span class='label'>account_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_strio'>strio</span> <span class='op'>=</span> <span class='const'>StringIO</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='id identifier rubyid_logger'>logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_strio'>strio</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_uid'>uid</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util.html" title="WSAPI::Util (module)">Util</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations.html" title="WSAPI::Util::Validations (module)">Validations</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations/String.html" title="WSAPI::Util::Validations::String (module)">String</a></span></span><span class='period'>.</span><span class='id identifier rubyid_positive_integer?'><span class='object_link'><a href="WSAPI/Util/Validations/String.html#positive_integer%3F-class_method" title="WSAPI::Util::Validations::String.positive_integer? (method)">positive_integer?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_uid'>uid</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>uid</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_page'>page</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util.html" title="WSAPI::Util (module)">Util</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations.html" title="WSAPI::Util::Validations (module)">Validations</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations/Integer.html" title="WSAPI::Util::Validations::Integer (module)">Integer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_positive_integer?'><span class='object_link'><a href="WSAPI/Util/Validations/Integer.html#positive_integer%3F-class_method" title="WSAPI::Util::Validations::Integer.positive_integer? (method)">positive_integer?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_page'>page</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>page</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_account_name'>account_name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util.html" title="WSAPI::Util (module)">Util</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations.html" title="WSAPI::Util::Validations (module)">Validations</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations/String.html" title="WSAPI::Util::Validations::String (module)">String</a></span></span><span class='period'>.</span><span class='id identifier rubyid_not_empty?'><span class='object_link'><a href="WSAPI/Util/Validations/String.html#not_empty%3F-class_method" title="WSAPI::Util::Validations::String.not_empty? (method)">not_empty?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_account_name'>account_name</span> <span class='op'>||</span> <span class='ivar'>@account_name</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>account_name</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    
+    <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WSAPI#friends: uid(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uid'>uid</span><span class='embexpr_end'>}</span><span class='tstring_content'>) page(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_page'>page</span><span class='embexpr_end'>}</span><span class='tstring_content'>) account_name(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_account_name'>account_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+    <span class='kw'>begin</span>
+        <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='id identifier rubyid_session'>session</span> <span class='op'>=</span> <span class='ivar'>@sm</span><span class='period'>.</span><span class='id identifier rubyid_get_session'>get_session</span> <span class='id identifier rubyid_account_name'>account_name</span>
+        <span class='id identifier rubyid_conn'>conn</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_conn'>conn</span>
+
+        <span class='kw'>for</span> <span class='id identifier rubyid_i'>i</span> <span class='kw'>in</span> <span class='int'>1</span><span class='op'>..</span><span class='int'>2</span> <span class='kw'>do</span>
+            <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='id identifier rubyid_conn'>conn</span><span class='comma'>,</span><span class='id identifier rubyid_uid'>uid</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://weibo.com/ajax/friendships/friends?page=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_page'>page</span><span class='embexpr_end'>}</span><span class='tstring_content'>&amp;uid=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uid'>uid</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>users</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='label'>logger:</span> <span class='id identifier rubyid_logger'>logger</span><span class='rparen'>)</span>
+            
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00041</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WRONG_RESPONSE</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00042</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INVALID_JSON</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00043</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNKNOWN_RESPONSE</span><span class='tstring_end'>&quot;</span></span>
+            <span class='kw'>return</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>users</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>total_number</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>private</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ACCOUNT_PRIVATE</span><span class='tstring_end'>&quot;</span></span>
+            
+            <span class='kw'>if</span> <span class='id identifier rubyid_is_response_stale?'>is_response_stale?</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
+                <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='id identifier rubyid_session'>session</span> <span class='op'>=</span> <span class='ivar'>@sm</span><span class='period'>.</span><span class='id identifier rubyid_get_session'>get_session</span><span class='lparen'>(</span><span class='id identifier rubyid_account_name'>account_name</span><span class='comma'>,</span><span class='label'>renewFrom:</span> <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='label'>logger:</span> <span class='id identifier rubyid_logger'>logger</span><span class='rparen'>)</span>
+                <span class='id identifier rubyid_conn'>conn</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_conn'>conn</span>
+            <span class='kw'>else</span>
+                <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ok</span><span class='tstring_end'>&quot;</span></span>
+                <span class='kw'>return</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+            <span class='kw'>end</span>
+        <span class='kw'>end</span>
+
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00044</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+        <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+        <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_backtrace'>backtrace</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='ivar'>@config</span><span class='period'>.</span><span class='id identifier rubyid_get_log_data'>get_log_data</span><span class='period'>.</span><span class='id identifier rubyid_create_log'>create_log</span> <span class='id identifier rubyid_e'>e</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WSAPI.friends</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_strio'>strio</span><span class='period'>.</span><span class='id identifier rubyid_string'>string</span>
+        <span class='id identifier rubyid_raise'>raise</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="keep_alive-instance_method">
+  
+    #<strong>keep_alive</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/weibo_scraper_api.rb', line 194</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_keep_alive'>keep_alive</span>
+    <span class='id identifier rubyid_strio'>strio</span> <span class='op'>=</span> <span class='const'>StringIO</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='id identifier rubyid_logger'>logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_strio'>strio</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WSAPI#keep_alive</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+    <span class='kw'>begin</span>
+        <span class='id identifier rubyid_renewed'>renewed</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+        <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='ivar'>@config</span><span class='period'>.</span><span class='id identifier rubyid_get_data'>get_data</span>
+        <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_get_accounts'>get_accounts</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_account_name'>account_name</span><span class='op'>|</span>
+            <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='id identifier rubyid_session'>session</span> <span class='op'>=</span> <span class='ivar'>@sm</span><span class='period'>.</span><span class='id identifier rubyid_get_session'>get_session</span> <span class='id identifier rubyid_account_name'>account_name</span>
+            <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_is_active?'>is_active?</span><span class='lparen'>(</span><span class='label'>logger:</span> <span class='id identifier rubyid_logger'>logger</span><span class='rparen'>)</span>
+                <span class='ivar'>@sm</span><span class='period'>.</span><span class='id identifier rubyid_get_session'>get_session</span><span class='lparen'>(</span><span class='id identifier rubyid_account_name'>account_name</span><span class='comma'>,</span><span class='label'>renewFrom:</span> <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='label'>logger:</span> <span class='id identifier rubyid_logger'>logger</span><span class='rparen'>)</span>
+                <span class='id identifier rubyid_renewed'>renewed</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_account_name'>account_name</span>
+            <span class='kw'>end</span>
+        <span class='kw'>end</span>
+        <span class='id identifier rubyid_renewed'>renewed</span>
+    <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+        <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+        <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_backtrace'>backtrace</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='ivar'>@config</span><span class='period'>.</span><span class='id identifier rubyid_get_log_data'>get_log_data</span><span class='period'>.</span><span class='id identifier rubyid_create_log'>create_log</span> <span class='id identifier rubyid_e'>e</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WSAPI.keep_alive</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_strio'>strio</span><span class='period'>.</span><span class='id identifier rubyid_string'>string</span>
+        <span class='id identifier rubyid_raise'>raise</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="my_uid-instance_method">
+  
+    #<strong>my_uid</strong>(account_name: nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19
+20
+21
+22</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/weibo_scraper_api.rb', line 17</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_my_uid'>my_uid</span><span class='lparen'>(</span><span class='label'>account_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_account_name'>account_name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util.html" title="WSAPI::Util (module)">Util</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations.html" title="WSAPI::Util::Validations (module)">Validations</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations/String.html" title="WSAPI::Util::Validations::String (module)">String</a></span></span><span class='period'>.</span><span class='id identifier rubyid_not_empty?'><span class='object_link'><a href="WSAPI/Util/Validations/String.html#not_empty%3F-class_method" title="WSAPI::Util::Validations::String.not_empty? (method)">not_empty?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_account_name'>account_name</span> <span class='op'>||</span> <span class='ivar'>@account_name</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>account_name</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    
+    <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='id identifier rubyid_session'>session</span> <span class='op'>=</span> <span class='ivar'>@sm</span><span class='period'>.</span><span class='id identifier rubyid_get_session'>get_session</span> <span class='id identifier rubyid_account_name'>account_name</span>
+    <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_internal_uid'>internal_uid</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="profile-instance_method">
+  
+    #<strong>profile</strong>(uid, account_name: nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/weibo_scraper_api.rb', line 24</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_profile'>profile</span><span class='lparen'>(</span><span class='id identifier rubyid_uid'>uid</span><span class='comma'>,</span><span class='label'>account_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_strio'>strio</span> <span class='op'>=</span> <span class='const'>StringIO</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='id identifier rubyid_logger'>logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_strio'>strio</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_strio_info'>strio_info</span> <span class='op'>=</span> <span class='const'>StringIO</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='id identifier rubyid_logger_info'>logger_info</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_strio_info'>strio_info</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_strio_detail'>strio_detail</span> <span class='op'>=</span> <span class='const'>StringIO</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='id identifier rubyid_logger_detail'>logger_detail</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_strio_detail'>strio_detail</span><span class='rparen'>)</span>        
+
+    <span class='id identifier rubyid_uid'>uid</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util.html" title="WSAPI::Util (module)">Util</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations.html" title="WSAPI::Util::Validations (module)">Validations</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations/String.html" title="WSAPI::Util::Validations::String (module)">String</a></span></span><span class='period'>.</span><span class='id identifier rubyid_positive_integer?'><span class='object_link'><a href="WSAPI/Util/Validations/String.html#positive_integer%3F-class_method" title="WSAPI::Util::Validations::String.positive_integer? (method)">positive_integer?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_uid'>uid</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>uid</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_account_name'>account_name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util.html" title="WSAPI::Util (module)">Util</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations.html" title="WSAPI::Util::Validations (module)">Validations</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations/String.html" title="WSAPI::Util::Validations::String (module)">String</a></span></span><span class='period'>.</span><span class='id identifier rubyid_not_empty?'><span class='object_link'><a href="WSAPI/Util/Validations/String.html#not_empty%3F-class_method" title="WSAPI::Util::Validations::String.not_empty? (method)">not_empty?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_account_name'>account_name</span> <span class='op'>||</span> <span class='ivar'>@account_name</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>account_name</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WSAPI#profile: uid(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uid'>uid</span><span class='embexpr_end'>}</span><span class='tstring_content'>) account_name(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_account_name'>account_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+    <span class='kw'>begin</span>                        
+        <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='id identifier rubyid_session'>session</span> <span class='op'>=</span> <span class='ivar'>@sm</span><span class='period'>.</span><span class='id identifier rubyid_get_session'>get_session</span> <span class='id identifier rubyid_account_name'>account_name</span>
+        <span class='id identifier rubyid_conn'>conn</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_conn'>conn</span>
+
+        <span class='kw'>for</span> <span class='id identifier rubyid_i'>i</span> <span class='kw'>in</span> <span class='int'>1</span><span class='op'>..</span><span class='int'>2</span> <span class='kw'>do</span>
+            <span class='id identifier rubyid_r_info'>r_info</span><span class='comma'>,</span><span class='id identifier rubyid_r_detail'>r_detail</span> <span class='op'>=</span> <span class='lbracket'>[</span>
+                <span class='const'>Thread</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='id identifier rubyid_conn'>conn</span><span class='comma'>,</span><span class='id identifier rubyid_uid'>uid</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://weibo.com/ajax/profile/info?uid=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uid'>uid</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='label'>logger:</span> <span class='id identifier rubyid_logger_info'>logger_info</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+                <span class='const'>Thread</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='id identifier rubyid_conn'>conn</span><span class='comma'>,</span><span class='id identifier rubyid_uid'>uid</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://weibo.com/ajax/profile/detail?uid=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uid'>uid</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='label'>logger:</span> <span class='id identifier rubyid_logger_detail'>logger_detail</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+            <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:value</span><span class='rparen'>)</span>
+            
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00030</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>  <span class='kw'>if</span> <span class='id identifier rubyid_r_info'>r_info</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_r_info'>r_info</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WRONG_RESPONSE</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00031</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>  <span class='kw'>if</span> <span class='id identifier rubyid_r_info'>r_info</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_r_info'>r_info</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INVALID_JSON</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00032</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>  <span class='kw'>if</span> <span class='id identifier rubyid_r_info'>r_info</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_r_info'>r_info</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNKNOWN_RESPONSE</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00033</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>  <span class='kw'>if</span> <span class='id identifier rubyid_r_detail'>r_detail</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_r_detail'>r_detail</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WRONG_RESPONSE</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00034</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>  <span class='kw'>if</span> <span class='id identifier rubyid_r_detail'>r_detail</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_r_detail'>r_detail</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INVALID_JSON</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00035</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>  <span class='kw'>if</span> <span class='id identifier rubyid_r_detail'>r_detail</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_r_detail'>r_detail</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNKNOWN_RESPONSE</span><span class='tstring_end'>&quot;</span></span>
+            
+            <span class='kw'>if</span> <span class='id identifier rubyid_is_response_stale?'>is_response_stale?</span><span class='lparen'>(</span><span class='id identifier rubyid_r_info'>r_info</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_is_response_stale?'>is_response_stale?</span><span class='lparen'>(</span><span class='id identifier rubyid_r_detail'>r_detail</span><span class='rparen'>)</span>
+                <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='id identifier rubyid_session'>session</span> <span class='op'>=</span> <span class='ivar'>@sm</span><span class='period'>.</span><span class='id identifier rubyid_get_session'>get_session</span><span class='lparen'>(</span><span class='id identifier rubyid_account_name'>account_name</span><span class='comma'>,</span><span class='label'>renewFrom:</span> <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='label'>logger:</span> <span class='id identifier rubyid_logger'>logger</span><span class='rparen'>)</span>
+                <span class='id identifier rubyid_conn'>conn</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_conn'>conn</span>
+            <span class='kw'>else</span>
+                <span class='kw'>return</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>info</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_r_info'>r_info</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>detail</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_r_detail'>r_detail</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rbrace'>}</span>
+            <span class='kw'>end</span>
+        <span class='kw'>end</span>
+
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00036</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>        
+    <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>            
+        <span class='id identifier rubyid_logger_detail'>logger_detail</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+        <span class='id identifier rubyid_logger_detail'>logger_detail</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_backtrace'>backtrace</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_log_content'>log_content</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_strio'>strio</span><span class='period'>.</span><span class='id identifier rubyid_string'>string</span><span class='comma'>,</span><span class='id identifier rubyid_strio_info'>strio_info</span><span class='period'>.</span><span class='id identifier rubyid_string'>string</span><span class='comma'>,</span><span class='id identifier rubyid_strio_detail'>strio_detail</span><span class='period'>.</span><span class='id identifier rubyid_string'>string</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>            
+        <span class='ivar'>@config</span><span class='period'>.</span><span class='id identifier rubyid_get_log_data'>get_log_data</span><span class='period'>.</span><span class='id identifier rubyid_create_log'>create_log</span> <span class='id identifier rubyid_e'>e</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WSAPI.profile</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_log_content'>log_content</span>
+        <span class='id identifier rubyid_raise'>raise</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="statuses-instance_method">
+  
+    #<strong>statuses</strong>(uid, since_id = nil, account_name: nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/weibo_scraper_api.rb', line 152</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_statuses'>statuses</span><span class='lparen'>(</span><span class='id identifier rubyid_uid'>uid</span><span class='comma'>,</span><span class='id identifier rubyid_since_id'>since_id</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span><span class='label'>account_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_strio'>strio</span> <span class='op'>=</span> <span class='const'>StringIO</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='id identifier rubyid_logger'>logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_strio'>strio</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_uid'>uid</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util.html" title="WSAPI::Util (module)">Util</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations.html" title="WSAPI::Util::Validations (module)">Validations</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations/String.html" title="WSAPI::Util::Validations::String (module)">String</a></span></span><span class='period'>.</span><span class='id identifier rubyid_positive_integer?'><span class='object_link'><a href="WSAPI/Util/Validations/String.html#positive_integer%3F-class_method" title="WSAPI::Util::Validations::String.positive_integer? (method)">positive_integer?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_uid'>uid</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>uid</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_since_id'>since_id</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util.html" title="WSAPI::Util (module)">Util</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations.html" title="WSAPI::Util::Validations (module)">Validations</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations/String.html" title="WSAPI::Util::Validations::String (module)">String</a></span></span><span class='period'>.</span><span class='id identifier rubyid_matches?'><span class='object_link'><a href="WSAPI/Util/Validations/String.html#matches%3F-class_method" title="WSAPI::Util::Validations::String.matches? (method)">matches?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_since_id'>since_id</span><span class='comma'>,</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^[0-9]+kp[0-9]+$</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>since_id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='label'>optional:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_account_name'>account_name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util.html" title="WSAPI::Util (module)">Util</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations.html" title="WSAPI::Util::Validations (module)">Validations</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Util/Validations/String.html" title="WSAPI::Util::Validations::String (module)">String</a></span></span><span class='period'>.</span><span class='id identifier rubyid_not_empty?'><span class='object_link'><a href="WSAPI/Util/Validations/String.html#not_empty%3F-class_method" title="WSAPI::Util::Validations::String.not_empty? (method)">not_empty?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_account_name'>account_name</span> <span class='op'>||</span> <span class='ivar'>@account_name</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>account_name</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WSAPI#statuses: uid(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uid'>uid</span><span class='embexpr_end'>}</span><span class='tstring_content'>) since_id(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_since_id'>since_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>) account_name(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_account_name'>account_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_prefix'>prefix</span><span class='comma'>,</span><span class='id identifier rubyid_page'>page</span> <span class='op'>=</span> <span class='id identifier rubyid_since_id'>since_id</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^([0-9]+)kp([0-9]+$)</span><span class='regexp_end'>/</span></span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='id identifier rubyid_since_id'>since_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_captures'>captures</span>
+    <span class='id identifier rubyid_since_id_suffix'>since_id_suffix</span> <span class='op'>=</span> <span class='id identifier rubyid_prefix'>prefix</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;since_id=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_since_id'>since_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_url'>url</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://weibo.com/ajax/statuses/mymblog?uid=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uid'>uid</span><span class='embexpr_end'>}</span><span class='tstring_content'>&amp;page=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_page'>page</span><span class='embexpr_end'>}</span><span class='tstring_content'>&amp;feature=0</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_since_id_suffix'>since_id_suffix</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+
+    <span class='kw'>begin</span>
+        <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='id identifier rubyid_session'>session</span> <span class='op'>=</span> <span class='ivar'>@sm</span><span class='period'>.</span><span class='id identifier rubyid_get_session'>get_session</span> <span class='id identifier rubyid_account_name'>account_name</span>
+        <span class='id identifier rubyid_conn'>conn</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_conn'>conn</span>
+
+        <span class='kw'>for</span> <span class='id identifier rubyid_i'>i</span> <span class='kw'>in</span> <span class='int'>1</span><span class='op'>..</span><span class='int'>2</span> <span class='kw'>do</span>
+            <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='id identifier rubyid_conn'>conn</span><span class='comma'>,</span><span class='id identifier rubyid_uid'>uid</span><span class='comma'>,</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='label'>logger:</span> <span class='id identifier rubyid_logger'>logger</span><span class='rparen'>)</span>
+            
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00045</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WRONG_RESPONSE</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00046</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INVALID_JSON</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00047</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>message</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNKNOWN_RESPONSE</span><span class='tstring_end'>&quot;</span></span>
+            
+            <span class='kw'>if</span> <span class='id identifier rubyid_is_response_stale?'>is_response_stale?</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
+                <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='id identifier rubyid_session'>session</span> <span class='op'>=</span> <span class='ivar'>@sm</span><span class='period'>.</span><span class='id identifier rubyid_get_session'>get_session</span><span class='lparen'>(</span><span class='id identifier rubyid_account_name'>account_name</span><span class='comma'>,</span><span class='label'>renewFrom:</span> <span class='id identifier rubyid_version'>version</span><span class='comma'>,</span><span class='label'>logger:</span> <span class='id identifier rubyid_logger'>logger</span><span class='rparen'>)</span>
+                <span class='id identifier rubyid_conn'>conn</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_conn'>conn</span>
+            <span class='kw'>else</span>
+                <span class='kw'>return</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+            <span class='kw'>end</span>            
+        <span class='kw'>end</span>
+
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="" title="WSAPI (class)">WSAPI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions.html" title="WSAPI::Exceptions (module)">Exceptions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html" title="WSAPI::Exceptions::Unexpected (class)">Unexpected</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="WSAPI/Exceptions/Unexpected.html#initialize-instance_method" title="WSAPI::Exceptions::Unexpected#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UNEXP00048</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+        <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+        <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_backtrace'>backtrace</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='ivar'>@config</span><span class='period'>.</span><span class='id identifier rubyid_get_log_data'>get_log_data</span><span class='period'>.</span><span class='id identifier rubyid_create_log'>create_log</span> <span class='id identifier rubyid_e'>e</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WSAPI.statuses</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_strio'>strio</span><span class='period'>.</span><span class='id identifier rubyid_string'>string</span>
+        <span class='id identifier rubyid_raise'>raise</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Fri Jan 14 16:12:33 2022 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.27 (ruby-2.7.0).
+</div>
+
+    </div>
+  </body>
+</html>

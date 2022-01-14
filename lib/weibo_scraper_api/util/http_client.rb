@@ -56,12 +56,21 @@ class WSAPI
                 for i in 1..@retries+1
                     begin
                         response = conn.get(url,{},headers)
-                        return response if response.status>=200 && response.status<400
+                        return response if response.status>=200 && response.status<500
                         return response if i==@retries+1
-                        log_info(logger,"HTTP_CLIENT: cause of retrial: status: #{response.status}")
+                        log_info(logger,"HTTP_CLIENT: cause for retrial: status: #{response.status}")
                     rescue => e
-                        raise e if i==@retries+1
-                        log_info(logger,"HTTP_CLIENT: cause of retrial: #{e}")
+                        if i==@retries+1
+                            request = {"method" => "get","url" => url}
+                            if e.wrapped_exception && e.wrapped_exception.class==SocketError
+                                raise WSAPI::Exceptions::ConnectionSocketError.new(request,e.wrapped_exception)
+                            elsif e.wrapped_exception && e.wrapped_exception.class==Net::OpenTimeout
+                                raise WSAPI::Exceptions::ConnectionTimeoutError.new(request,e.wrapped_exception)
+                            else
+                                raise WSAPI::Exceptions::ConnectionUnknownError.new(request,e.wrapped_exception)
+                            end
+                        end
+                        log_info(logger,"HTTP_CLIENT: cause for retrial: #{e}")
                     end
                     log_info(logger,"HTTP_CLIENT: retrial #{i} of #{@retries}")
                 end

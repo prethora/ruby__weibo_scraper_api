@@ -7,7 +7,10 @@ class WSAPI
     module CLI
         module Commands
             class Configure < Base
-                def run(argv)                    
+                def run(argv)     
+                    wsapi = WSAPI.new(account_name: "bob")
+                    p wsapi.fans(wsapi.my_uid)
+                    return  
                     return show_help if argv.length==1 && ["-h","--help"].include?(argv[0])
 
                     options = {}
