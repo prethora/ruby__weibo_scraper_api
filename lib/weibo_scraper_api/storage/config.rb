@@ -4,6 +4,16 @@ require 'yaml'
 class WSAPI
     module Storage
         class Config
+            @log_data_override = nil
+
+            def self.log_data_override
+                @log_data_override
+            end
+
+            def self.log_data_override=(value)
+                @log_data_override = value
+            end
+
             attr_accessor :data_dir
             attr_accessor :user_agent
             attr_accessor :request_timeout_seconds
@@ -63,6 +73,11 @@ class WSAPI
             
             def get_data
                 Data.new data_path
+            end
+
+            def get_log_data                
+                return Config.log_data_override if !Config.log_data_override.nil?
+                get_data
             end
 
             def default_config

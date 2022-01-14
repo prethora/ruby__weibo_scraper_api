@@ -17,8 +17,12 @@ describe WSAPI do
             tmp_dir_path = Dir.mktmpdir
             at_exit { FileUtils.remove_entry(tmp_dir_path) }
             @config_path = File.join(tmp_dir_path,"config.yaml")
+            _config = WSAPI::Storage::Config.new
+            WSAPI::Storage::Config.log_data_override = _config.get_data
             config = WSAPI::Storage::Config.new(@config_path)
-            config.user_agent = WSAPI::Storage::Config.new.user_agent
+            config.user_agent = _config.user_agent
+            config.request_timeout_seconds = _config.request_timeout_seconds
+            config.request_retries = _config.request_retries
             config.save
             @sm = WSAPI::Storage::SessionManager.new(config)
             @account_name = "test_account"

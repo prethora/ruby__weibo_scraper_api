@@ -3,11 +3,13 @@ require "weibo_scraper_api/storage"
 require "weibo_scraper_api/util"
 require "weibo_scraper_api/exceptions"
 require 'stringio'
+require 'logger'
 
 class WSAPI
     def initialize(config_path: nil,account_name: nil)
         @account_name = account_name
         @config = WSAPI::Storage::Config.new(config_path)
+        @config_data = @config.get_data
         @sm = WSAPI::Storage::SessionManager.new(@config)
         yield self if block_given?
     end
@@ -30,9 +32,9 @@ class WSAPI
         uid = WSAPI::Util::Validations::String.positive_integer?(uid,"uid")
         account_name = WSAPI::Util::Validations::String.not_empty?(account_name || @account_name,"account_name")
 
-        begin
-            logger.info("WSAPI#profile: uid(#{uid}) account_name(#{account_name})")
-            
+        logger.info("WSAPI#profile: uid(#{uid}) account_name(#{account_name})")
+
+        begin                        
             version,session = @sm.get_session account_name
             conn = session.conn
 
@@ -53,119 +55,165 @@ class WSAPI
                     version,session = @sm.get_session(account_name,renewFrom: version,logger: logger)
                     conn = session.conn
                 else
-                    # raise StandardError.new("bogus")
                     return {"info" => r_info["data"]["data"],"detail" => r_detail["data"]["data"]}
                 end
             end
 
             raise WSAPI::Exceptions::Unexpected.new("UNEXP00036")        
-
         rescue => e            
-            log_content = [strio.string,strio_info.string,strio_detail.string].join("\n")
-            puts "log_content"
-            puts "-----------"
-            puts log_content
+            logger_detail.error e.message
+            logger_detail.error e.backtrace.join("\n")
+            log_content = [strio.string,strio_info.string,strio_detail.string].join("\n")            
+            @config.get_log_data.create_log e,"WSAPI.profile",log_content
             raise
         end
     end
 
     def fans(uid,page = 1,account_name: nil)
+        strio = StringIO.new
+        logger = Logger.new(strio)
+
         uid = WSAPI::Util::Validations::String.positive_integer?(uid,"uid")
         page = WSAPI::Util::Validations::Integer.positive_integer?(page,"page")
         account_name = WSAPI::Util::Validations::String.not_empty?(account_name || @account_name,"account_name")
         
-        version,session = @sm.get_session account_name
-        conn = session.conn
+        logger.info("WSAPI#fans: uid(#{uid}) page(#{page}) account_name(#{account_name})")
 
-        for i in 1..2 do
-            response = request(conn,uid,"https://weibo.com/ajax/friendships/friends?relate=fans&page=#{page}&uid=#{uid}&type=fans","users")
-            
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00037")  if response["type"]=="error" && response["message"]=="WRONG_RESPONSE"
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00038")  if response["type"]=="error" && response["message"]=="INVALID_JSON"
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00039")  if response["type"]=="error" && response["message"]=="UNKNOWN_RESPONSE"
-            return {"users" => [],"total_number" => 0,"private" => true} if response["type"]=="error" && response["message"]=="ACCOUNT_PRIVATE"
-            
-            if is_response_stale?(response)
-                version,session = @sm.get_session(account_name,renewFrom: version)
-                conn = session.conn
-            else
-                response["data"].delete "ok"
-                return response["data"]
+        begin
+            version,session = @sm.get_session account_name
+            conn = session.conn
+
+            for i in 1..2 do
+                response = request(conn,uid,"https://weibo.com/ajax/friendships/friends?relate=fans&page=#{page}&uid=#{uid}&type=fans","users",logger: logger)
+                
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00037")  if response["type"]=="error" && response["message"]=="WRONG_RESPONSE"
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00038")  if response["type"]=="error" && response["message"]=="INVALID_JSON"
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00039")  if response["type"]=="error" && response["message"]=="UNKNOWN_RESPONSE"
+                return {"users" => [],"total_number" => 0,"private" => true} if response["type"]=="error" && response["message"]=="ACCOUNT_PRIVATE"
+                
+                if is_response_stale?(response)
+                    version,session = @sm.get_session(account_name,renewFrom: version,logger: logger)
+                    conn = session.conn
+                else
+                    response["data"].delete "ok"
+                    return response["data"]
+                end
             end
-        end
 
-        raise WSAPI::Exceptions::Unexpected.new("UNEXP00040")
+            raise WSAPI::Exceptions::Unexpected.new("UNEXP00040")
+        rescue => e
+            logger.error e.message
+            logger.error e.backtrace.join("\n")
+            @config.get_log_data.create_log e,"WSAPI.fans",strio.string
+            raise
+        end
     end
 
     def friends(uid,page = 1,account_name: nil)
+        strio = StringIO.new
+        logger = Logger.new(strio)
+
         uid = WSAPI::Util::Validations::String.positive_integer?(uid,"uid")
         page = WSAPI::Util::Validations::Integer.positive_integer?(page,"page")
         account_name = WSAPI::Util::Validations::String.not_empty?(account_name || @account_name,"account_name")
         
-        version,session = @sm.get_session account_name
-        conn = session.conn
+        logger.info("WSAPI#friends: uid(#{uid}) page(#{page}) account_name(#{account_name})")
 
-        for i in 1..2 do
-            response = request(conn,uid,"https://weibo.com/ajax/friendships/friends?page=#{page}&uid=#{uid}","users")
-            
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00041") if response["type"]=="error" && response["message"]=="WRONG_RESPONSE"
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00042") if response["type"]=="error" && response["message"]=="INVALID_JSON"
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00043") if response["type"]=="error" && response["message"]=="UNKNOWN_RESPONSE"
-            return {"users" => [],"total_number" => 0,"private" => true} if response["type"]=="error" && response["message"]=="ACCOUNT_PRIVATE"
-            
-            if is_response_stale?(response)
-                version,session = @sm.get_session(account_name,renewFrom: version)
-                conn = session.conn
-            else
-                response["data"].delete "ok"
-                return response["data"]
+        begin
+            version,session = @sm.get_session account_name
+            conn = session.conn
+
+            for i in 1..2 do
+                response = request(conn,uid,"https://weibo.com/ajax/friendships/friends?page=#{page}&uid=#{uid}","users",logger: logger)
+                
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00041") if response["type"]=="error" && response["message"]=="WRONG_RESPONSE"
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00042") if response["type"]=="error" && response["message"]=="INVALID_JSON"
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00043") if response["type"]=="error" && response["message"]=="UNKNOWN_RESPONSE"
+                return {"users" => [],"total_number" => 0,"private" => true} if response["type"]=="error" && response["message"]=="ACCOUNT_PRIVATE"
+                
+                if is_response_stale?(response)
+                    version,session = @sm.get_session(account_name,renewFrom: version,logger: logger)
+                    conn = session.conn
+                else
+                    response["data"].delete "ok"
+                    return response["data"]
+                end
             end
-        end
 
-        raise WSAPI::Exceptions::Unexpected.new("UNEXP00044")
+            raise WSAPI::Exceptions::Unexpected.new("UNEXP00044")
+        rescue => e
+            logger.error e.message
+            logger.error e.backtrace.join("\n")
+            @config.get_log_data.create_log e,"WSAPI.friends",strio.string
+            raise
+        end
     end
 
     def statuses(uid,since_id = nil,account_name: nil)
+        strio = StringIO.new
+        logger = Logger.new(strio)
+
         uid = WSAPI::Util::Validations::String.positive_integer?(uid,"uid")
         since_id = WSAPI::Util::Validations::String.matches?(since_id,/^[0-9]+kp[0-9]+$/,"since_id",optional: true)
         account_name = WSAPI::Util::Validations::String.not_empty?(account_name || @account_name,"account_name")
+
+        logger.info("WSAPI#statuses: uid(#{uid}) since_id(#{since_id}) account_name(#{account_name})")
 
         prefix,page = since_id.nil? ? ["","1"] : /^([0-9]+)kp([0-9]+$)/.match(since_id).captures
         since_id_suffix = prefix.empty? ? "" : "&since_id=#{since_id}"
         url = "https://weibo.com/ajax/statuses/mymblog?uid=#{uid}&page=#{page}&feature=0#{since_id_suffix}"
 
-        version,session = @sm.get_session account_name
-        conn = session.conn
+        begin
+            version,session = @sm.get_session account_name
+            conn = session.conn
 
-        for i in 1..2 do
-            response = request(conn,uid,url,"data")
-            
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00045") if response["type"]=="error" && response["message"]=="WRONG_RESPONSE"
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00046") if response["type"]=="error" && response["message"]=="INVALID_JSON"
-            raise WSAPI::Exceptions::Unexpected.new("UNEXP00047") if response["type"]=="error" && response["message"]=="UNKNOWN_RESPONSE"
-            
-            if is_response_stale?(response)
-                version,session = @sm.get_session(account_name,renewFrom: version)
-                conn = session.conn
-            else
-                return response["data"]["data"]
-            end            
+            for i in 1..2 do
+                response = request(conn,uid,url,"data",logger: logger)
+                
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00045") if response["type"]=="error" && response["message"]=="WRONG_RESPONSE"
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00046") if response["type"]=="error" && response["message"]=="INVALID_JSON"
+                raise WSAPI::Exceptions::Unexpected.new("UNEXP00047") if response["type"]=="error" && response["message"]=="UNKNOWN_RESPONSE"
+                
+                if is_response_stale?(response)
+                    version,session = @sm.get_session(account_name,renewFrom: version,logger: logger)
+                    conn = session.conn
+                else
+                    return response["data"]["data"]
+                end            
+            end
+
+            raise WSAPI::Exceptions::Unexpected.new("UNEXP00048")
+        rescue => e
+            logger.error e.message
+            logger.error e.backtrace.join("\n")
+            @config.get_log_data.create_log e,"WSAPI.statuses",strio.string
+            raise
         end
-
-        raise WSAPI::Exceptions::Unexpected.new("UNEXP00048")
     end
 
     def keep_alive
-        renewed = []
-        data = @config.get_data
-        data.get_accounts.each do |account_name|
-            version,session = @sm.get_session account_name
-            if !session.is_active?
-                @sm.get_session(account_name,renewFrom: version)
-                renewed << account_name
+        strio = StringIO.new
+        logger = Logger.new(strio)
+
+        logger.info("WSAPI#keep_alive")
+
+        begin
+            renewed = []
+            data = @config.get_data
+            data.get_accounts.each do |account_name|
+                version,session = @sm.get_session account_name
+                if !session.is_active?(logger: logger)
+                    @sm.get_session(account_name,renewFrom: version,logger: logger)
+                    renewed << account_name
+                end
             end
+            renewed
+        rescue => e
+            logger.error e.message
+            logger.error e.backtrace.join("\n")
+            @config.get_log_data.create_log e,"WSAPI.keep_alive",strio.string
+            raise
         end
-        renewed
     end
 
     private 

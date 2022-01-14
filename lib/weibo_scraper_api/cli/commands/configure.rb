@@ -8,29 +8,6 @@ class WSAPI
         module Commands
             class Configure < Base
                 def run(argv)                    
-                    # strio1 = StringIO.new
-                    # strio2 = StringIO.new
-                    # logger1 = Logger.new(strio1)
-                    # logger2 = Logger.new(strio2)
-                    # conn = WSAPI::Util::HttpClient.new(log: true,retries: 3,logger: logger1)
-                    # begin
-                    #     # conn.get("https://www.googlesdsjdjksdjsk.com")
-                    #     # conn.get("https://www.google.com:81")
-                    #     conn.get("https://www.google.com")
-                    #     conn.get("https://www.google.com",logger: logger2)
-                    #     puts strio1.string
-                    #     puts
-                    #     puts strio2.string
-                    # rescue
-                    #     puts strio1.string
-                    #     raise
-                    # end
-                    # return
-
-                    wsapi = WSAPI.new(account_name: "anobob")
-                    p wsapi.profile(wsapi.my_uid)
-                    return
-
                     return show_help if argv.length==1 && ["-h","--help"].include?(argv[0])
 
                     options = {}

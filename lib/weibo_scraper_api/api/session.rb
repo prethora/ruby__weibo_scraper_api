@@ -9,6 +9,7 @@ class WSAPI
             attr_accessor :conn
 
             def initialize(config)
+                @config = config
                 @jar = HTTP::CookieJar.new                
                 @conn = WSAPI::Util::HttpClient.new(jar:@jar,user_agent: config.user_agent,follow_redirects: true,timeout: config.request_timeout_seconds,retries: config.request_retries)
                 yield self if block_given?
