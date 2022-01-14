@@ -70,7 +70,9 @@ class WSAPI
                     version,session = @sm.get_session(account_name,renewFrom: version,logger: logger)
                     conn = session.conn
                 else
-                    return {"info" => r_info["data"]["data"],"detail" => r_detail["data"]["data"]}
+                    ret = {"info" => r_info["data"]["data"],"detail" => r_detail["data"]["data"]}
+                    return yield ret if block_given?
+                    return ret
                 end
             end
 
@@ -118,7 +120,9 @@ class WSAPI
                     conn = session.conn
                 else
                     response["data"].delete "ok"
-                    return response["data"]
+                    ret = response["data"]
+                    return yield ret if block_given?
+                    return ret
                 end
             end
 
@@ -165,7 +169,9 @@ class WSAPI
                     conn = session.conn
                 else
                     response["data"].delete "ok"
-                    return response["data"]
+                    ret = response["data"]
+                    return yield ret if block_given?
+                    return ret
                 end
             end
 
@@ -216,7 +222,9 @@ class WSAPI
                     version,session = @sm.get_session(account_name,renewFrom: version,logger: logger)
                     conn = session.conn
                 else
-                    return response["data"]["data"]
+                    ret = response["data"]["data"]
+                    return yield ret if block_given?
+                    return ret
                 end            
             end
 
@@ -238,7 +246,10 @@ class WSAPI
     # after no use - but I am assuming that after some period of time they would probably expire).
     #
     # *Recommended*: to be safe, it would be a good idea to run the +wsapi accounts keep_alive+ command (which calls this method) 
-    # as cron job say every 5 days, to make sure any accounts you have configured but do not use regularly stay alive indefinitely.
+    # as a cron job say every 5 days, to make sure any accounts you have configured but do not use regularly stay alive indefinitely.
+    # If you are using all accounts regularly though, this is unnecessary.
+    #
+    # @return [Array<String>] a list of account names for the accounts that were renewed.
     def keep_alive
         strio = StringIO.new
         logger = Logger.new(strio)
