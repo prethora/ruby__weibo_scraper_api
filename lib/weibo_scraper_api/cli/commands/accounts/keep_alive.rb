@@ -15,7 +15,7 @@ class WSAPI
                                 opt.on("-q","--quiet",TrueClass) { |o| options["quiet"] = o }
                             end.parse! argv
                             
-                            raise StandardError.new("unexpected argument: #{argv[0]}") if !argv.empty?
+                            raise ArgumentError.new("unexpected argument: #{argv[0]}") if !argv.empty?
                         rescue => e
                             return output_usage_error e.message
                         end                        

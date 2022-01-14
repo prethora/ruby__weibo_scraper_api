@@ -15,13 +15,13 @@ class WSAPI
                 begin
                     FileUtils.mkdir_p(@data_accounts_path)                    
                 rescue
-                    raise StandardError.new("the configured data path is invalid - unable to create the accounts directory")
+                    raise IOError.new("the configured data path is invalid - unable to create the accounts directory")
                 end
 
                 begin
                     FileUtils.mkdir_p(@data_logs_path)                    
                 rescue
-                    raise StandardError.new("the configured data path is invalid - unable to create the logs directory")
+                    raise IOError.new("the configured data path is invalid - unable to create the logs directory")
                 end
             end
 

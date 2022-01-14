@@ -17,7 +17,7 @@ class WSAPI
                             opt.on("-p","--print",TrueClass) { |o| options["print"] = o }
                         end.parse! argv							
 
-                        raise StandardError.new("unexpected argument: #{argv[0]}") if !argv.empty?
+                        raise ArgumentError.new("unexpected argument: #{argv[0]}") if !argv.empty?
                     rescue => e
                         return output_usage_error e.message
                     end
@@ -74,7 +74,7 @@ class WSAPI
                         begin
                             config.validate
                         rescue => e
-                            raise StandardError.new(e.message.split(" - ")[1..-1].join(" - "))
+                            raise ArgumentError.new(e.message.split(" - ")[1..-1].join(" - "))
                         end
 
                         config.save

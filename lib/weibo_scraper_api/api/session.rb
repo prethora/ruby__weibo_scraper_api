@@ -19,7 +19,7 @@ class WSAPI
                 logger.info("SESSION#is_active") if !logger.nil?
 
                 uid = internal_uid
-                raise WSAPI::Exceptions::InvalidInput.new("internal_id not found") if uid.nil?
+                raise WSAPI::Exceptions::Unexpected.new("internal_id not found") if uid.nil?
 
                 url = "https://weibo.com/ajax/profile/info?uid=#{uid}"
                 headers = {"referer" => "https://weibo.com/u/#{uid}","accept" => "application/json, text/plain, */*"}

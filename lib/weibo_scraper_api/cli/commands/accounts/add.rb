@@ -15,11 +15,11 @@ class WSAPI
                                 add_config_option opt,options
                             end.parse! argv
                             
-                            raise StandardError.new("expecting a single argument (name)") if argv.length!=1
+                            raise ArgumentError.new("expecting a single argument (name)") if argv.length!=1
 
                             name = argv[0].strip
-                            raise StandardError.new("expecting argument name to be a non-empty string") if name.empty?
-                            raise StandardError.new("invalid name, can only contain: a-z A-Z 0-9 . _ and -") if (/^[a-zA-Z0-9\._-]+$/ =~ name).nil?
+                            raise ArgumentError.new("expecting argument name to be a non-empty string") if name.empty?
+                            raise ArgumentError.new("invalid name, can only contain: a-z A-Z 0-9 . _ and -") if (/^[a-zA-Z0-9\._-]+$/ =~ name).nil?
                         rescue => e
                             return output_usage_error e.message
                         end                        

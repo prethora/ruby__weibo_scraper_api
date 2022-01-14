@@ -29,19 +29,19 @@ class WSAPI
                 @config_path = File.expand_path(config_path || ENV["WSAPI_CONFIG_PATH"] || "~/.wsapi/config.yaml")
 
                 if File.exist? @config_path
-                    raise StandardError.new("the config path refers to a directory but should refer to a file") if Dir.exist? @config_path
+                    raise ArgumentError.new("the config path refers to a directory but should refer to a file") if Dir.exist? @config_path
                 else
                     dir_path = File.dirname(@config_path)
                     begin
                         FileUtils.mkdir_p dir_path
                     rescue
-                        raise StandardError.new("the config path is invalid - unable to create the containing directory")
+                        raise IOError.new("the config path is invalid - unable to create the containing directory")
                     end
 
                     begin
                         File.open(@config_path,"w") { |file| file.write(default_config.to_yaml) }
                     rescue
-                        raise StandardError.new("the config path is invalid - unable to write file to disk")
+                        raise IOError.new("the config path is invalid - unable to write file to disk")
                     end
                 end
 
@@ -49,14 +49,14 @@ class WSAPI
                 begin
                     content = File.read(@config_path)
                 rescue
-                    raise StandardError.new("the config path is invalid - unable to read file from disk")
+                    raise IOError.new("the config path is invalid - unable to read file from disk")
                 end
 
                 values = {}
                 begin
                     values = YAML.load(content)
                 rescue => e
-                    raise StandardError.new("config file is invalid - unable to parse YAML content with error: #{e.message}")
+                    raise ArgumentError.new("config file is invalid - unable to parse YAML content with error: #{e.message}")
                 end
 
                 @data_dir = values["data_dir"]
@@ -96,17 +96,17 @@ class WSAPI
                 @request_timeout_seconds = dc["request_timeout_seconds"] if @request_timeout_seconds.nil?
                 @request_retries = dc["request_retries"] if @request_retries.nil?
                 
-                raise StandardError.new("config file is invalid - data_dir is expected to be a non-empty string") if !@data_dir.is_a?(String) || @data_dir.empty?
-                raise StandardError.new("config file is invalid - user_agent is expected to be a non-empty string") if !@user_agent.is_a?(String) || @user_agent.empty?
-                raise StandardError.new("config file is invalid - request_timeout_seconds is expected to be a number and at least 5") if !@request_timeout_seconds.is_a?(Numeric) || @request_timeout_seconds<5
-                raise StandardError.new("config file is invalid - request_timeout_seconds is expected to be a non-negative integer") if !@request_retries.is_a?(Integer) || @request_retries<0
+                raise ArgumentError.new("config file is invalid - data_dir is expected to be a non-empty string") if !@data_dir.is_a?(String) || @data_dir.empty?
+                raise ArgumentError.new("config file is invalid - user_agent is expected to be a non-empty string") if !@user_agent.is_a?(String) || @user_agent.empty?
+                raise ArgumentError.new("config file is invalid - request_timeout_seconds is expected to be a number and at least 5") if !@request_timeout_seconds.is_a?(Numeric) || @request_timeout_seconds<5
+                raise ArgumentError.new("config file is invalid - request_timeout_seconds is expected to be a non-negative integer") if !@request_retries.is_a?(Integer) || @request_retries<0
             end
 
             def save
                 begin
                     File.open(@config_path,"w") { |file| file.write(self.to_s) }
                 rescue
-                    raise StandardError.new("the config path is invalid - unable to write file to disk")
+                    raise IOError.new("the config path is invalid - unable to write file to disk")
                 end
             end
 

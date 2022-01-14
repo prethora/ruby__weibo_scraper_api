@@ -12,7 +12,7 @@ class WSAPI
                     begin
                         FileUtils.mkdir_p(@file_path)
                     rescue
-                        raise StandardError("unable to create concurrent file '#{@file_path}', could not create containing directory")
+                        raise IOError.new("unable to create concurrent file '#{@file_path}', could not create containing directory")
                     end                    
                 end
 
@@ -21,7 +21,7 @@ class WSAPI
                     begin
                         File.open(temp_file_path,"w") { |file| file.write(value) }
                     rescue
-                        raise StandardError("unable to create concurrent temp file '#{temp_file_path}', could not write to disk")
+                        raise IOError.new("unable to create concurrent temp file '#{temp_file_path}', could not write to disk")
                     end
 
                     content_file_path = get_current_content_file_path                    
@@ -30,7 +30,7 @@ class WSAPI
                     begin
                         FileUtils.mv(temp_file_path,content_file_path)
                     rescue
-                        raise StandardError("unable to move concurrent temp file '#{temp_file_path}' to '#{content_file_path}', could not write to disk")
+                        raise IOError.new("unable to move concurrent temp file '#{temp_file_path}' to '#{content_file_path}', could not write to disk")
                     end
 
                     cleanup
@@ -53,7 +53,7 @@ class WSAPI
                     begin
                         content = File.read(content_file_path)
                     rescue
-                        raise StandardError("unable to read from concurrent file '#{content_file_path}'")
+                        raise IOError.new("unable to read from concurrent file '#{content_file_path}'")
                     end
                     
                     {"version" => version,"content" => content}                    
