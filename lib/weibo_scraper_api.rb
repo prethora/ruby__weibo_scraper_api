@@ -10,7 +10,7 @@ require 'logger'
 # Please see the +#Configuration+ and +#CLI+ sections from the +README.md+ file first, to better understand what
 # the +config_path+ and +account_name+ named arguments in these examples are for.
 # 
-# == Create an instance of the API interface
+# == Creating an instance of the API interface
 # Using the default configuration path ( +~/.wsapi/config.yaml+ or the value of the +WSAPI_CONFIG_PATH+ environment value, if set).
 #   wsapi = WSAPI.new
 # Explicitly setting a configuration path.
@@ -25,7 +25,7 @@ require 'logger'
 # == Making requests
 #
 # Get a user profile (+account_name+ in this case must have been set in the constructor).
-#   res = wsapi.profile "2125613987"  # {"info" => {...},"detail" => {...}}
+#   res = wsapi.profile "2125613987"  # {"info" => {"user" => {...},...},"detail" => {...}}
 # Get the first page of a user's friends (+account_name+ can be explicitly set per request as well)
 #   res = wsapi.friends "2125613987",account_name: "some_account"  # {"users" => [...],...}
 # Get the third page of a user's friends.
@@ -39,11 +39,81 @@ require 'logger'
 #   if !res1["since_id"].empty?
 #     res2 = wsapi.statuses "2125613987",res1["since_id"]  # {"list" => [...],"since_id" => "...",...}
 #   end 
+# All four request methods support block notation - however blocks act as transformers, i.e. if a block is provided,
+# the method returns the value the block returns.
+#   t_res = wsapi.profile("2125613987") do |res|
+#     res["info"]
+#   end
+#   p t_res  # {"user" => {...},...}
+#
+# == Private Accounts
+#
+# For some weibo.com user accounts the friends and fans are not visible to users who are not themselves connected 
+# to the user in question. This however seems to only apply to friend and fan connections, and not statuses - or
+# it could simply be that I haven't yet encountered an account that has private statuses, and thus do not yet know
+# what response to look for. The {WSAPI#friends} and {WSAPI#fans} methods will return the following response for such user accounts:
+#   {"users" => [],"total_number" => 0,"private" => true}  
+# *Note*: The +private+ field is not otherwise present on normal successful responses.
+#
+# == Exceptions
+#
+# The API interface can raise any of the following exceptions:
+#
+# * *ArgumentError*
+#
+#   Is raised if ever input is provided to the API that is not in the expected format, either as an argument to
+#   a method or a value inside the configuration file.
+#
+# * *IOError* 
+#
+#   Is raised if ever a disk write or read operation fails.
+#
+# * *WSAPI::Exceptions::UserNotFound*
+#
+#   Is raised if ever a +uid+ provided to a method request does not match an existing weibo.com user. 
+#   Note however that the {WSAPI#statuses} method will never raise this exception - for some reason weibo.com will return an empty list
+#   for a nonexistent user instead of the standard error response it provides for other requests.
+#
+# * *WSAPI::Exceptions::UnknownResponse*
+#
+#   One of its descentants (see below) is raised if ever weibo.com returns a response the API does not recognize. The exception instance will have a +response+ attribute which is a +Hash+
+#   containing the raw response in the format: +{"status" => ...,"body" => "..."}+. 
+#
+# * *WSAPI::Exceptions::UnknownResponseStatus*
+#
+#   A descendent of +WSAPI::Exceptions::UnknownResponse+. Is raised if the status of the response is unrecognized.
+#
+# * *WSAPI::Exceptions::UnknownResponseBody*
+#
+#   A descendent of +WSAPI::Exceptions::UnknownResponse+. Is raised if the status of the response is either 200 or 400 but the body is unrecognized.
+#
+# * *WSAPI::Exceptions::ConnectionError*
+#
+#   One of its descentants (see below) is raised if ever a connection related error occurs. The exception instance will have a +request+ attribute which is a +Hash+ in the
+#   following format: +{"method" => "...","url" => ""}+. The exception instance will also have a +wrapped_exception+ attribute which is the actual underlying system exception that
+#   was raised.
+#      
+# * *WSAPI::Exceptions::ConnectionSocketError*
+#
+#   A descendent of +WSAPI::Exceptions::ConnectionError+. Is raised if the connection could not be established, either because there is no internet connection or the weibo.com website is down.
+#      
+# * *WSAPI::Exceptions::ConnectionTimeoutError*
+#
+#   A descendent of +WSAPI::Exceptions::ConnectionError+. Is raised if the request takes longer than the configured timeout period.
+#      
+# * *WSAPI::Exceptions::ConnectionUnknownError*
+#
+#   A descendent of +WSAPI::Exceptions::ConnectionError+. Is raised if the neither of the previous two conditions are met.
+#
+# * *WSAPI::Exceptions::Unexpected*
+#
+#   Is raised if a change has occurred on the weibo.com side which breaks the API and generally indicates that the API needs to be updated.
 class WSAPI
     # Returns a new instance of WSAPI.
     #
     # @param [String] config_path optionally explicitly provide the path to the configuration file. If not provided, defaults to +~/.wsapi/config.yaml+ or the value of the environment variable +WSAPI_CONFIG_PATH+, if set.
     # @param [String] account_name optionally specify which account to use by default for all method calls. If not provided, the account must be selected on each method call.
+    # @yield [WSAPI] the created instance.
     def initialize(config_path: nil,account_name: nil)
         @account_name = account_name
         @config = WSAPI::Storage::Config.new(config_path)
@@ -55,7 +125,7 @@ class WSAPI
     # Returns the +uid+ of the selected account
     #
     # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
-    # @return [String] the +uid+ of the selected account
+    # @return [String] the +uid+ of the selected account.    
     # @raise [ArgumentError] if +account_name+ has not been set either in the constructor or the method call.
     def my_uid(account_name: nil)
         account_name = WSAPI::Util::Validations::String.not_empty?(account_name || @account_name,"account_name")
@@ -68,7 +138,8 @@ class WSAPI
     #
     # @param [String|Integer] uid a +String+ or +Integer+ representation of the user's +uid+.
     # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
-    # @return [Hash] +{'info' => ...,'detail' => ...}+
+    # @return [Hash] +{'info' => ...,'detail' => ...}+. If block notation is used however, will return whatever the block returns.
+    # @yield [Hash] +{'info' => ...,'detail' => ...}+.
     # @raise [ArgumentError] if +uid+ is not a +String+ or +Integer+ representation of a positive integer.
     # @raise [ArgumentError] if +account_name+ has not been set either in the constructor or the method call.
     def profile(uid,account_name: nil)
@@ -127,7 +198,8 @@ class WSAPI
     # @param [String|Integer] uid a +String+ or +Integer+ representation of the user's +uid+.
     # @param [Integer] page the page number to request.
     # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
-    # @return [Hash] +{'users' => [...],'total_number' => ...,'previous_cursor' => ...,'next_cursor' => ...}+
+    # @return [Hash] +{'users' => [...],'total_number' => ...,'previous_cursor' => ...,'next_cursor' => ...}+. If block notation is used however, will return whatever the block returns.
+    # @yield [Hash] +{'users' => [...],'total_number' => ...,'previous_cursor' => ...,'next_cursor' => ...}+.
     # @raise [ArgumentError] if +uid+ is not a +String+ or +Integer+ representation of a positive integer.
     # @raise [ArgumentError] if +page+ is not a positive +Integer+.
     # @raise [ArgumentError] if +account_name+ has not been set either in the constructor or the method call.
@@ -179,7 +251,8 @@ class WSAPI
     # @param [String|Integer] uid a +String+ or +Integer+ representation of the user's +uid+.
     # @param [Integer] page the page number to request.
     # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
-    # @return [Hash] +{'users' => [...],'total_number' => ...,'previous_cursor' => ...,'next_cursor' => ...}+
+    # @return [Hash] +{'users' => [...],'total_number' => ...,'previous_cursor' => ...,'next_cursor' => ...}+. If block notation is used however, will return whatever the block returns.
+    # @yield [Hash] +{'users' => [...],'total_number' => ...,'previous_cursor' => ...,'next_cursor' => ...}+.
     # @raise [ArgumentError] if +uid+ is not a +String+ or +Integer+ representation of a positive integer.
     # @raise [ArgumentError] if +page+ is not a positive +Integer+.
     # @raise [ArgumentError] if +account_name+ has not been set either in the constructor or the method call.
@@ -233,7 +306,8 @@ class WSAPI
     # @param [String|Integer] uid a +String+ or +Integer+ representation of the user's +uid+.
     # @param [String] since_id a value included in each response which should be provided here in order to request the next page. If not provided, the first page is requested.
     # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
-    # @return [Hash] +{'list' => [...],'since_id' => ...}+
+    # @return [Hash] +{'list' => [...],'since_id' => ...}+. If block notation is used however, will return whatever the block returns.
+    # @yield [Hash] +{'list' => [...],'since_id' => ...}+. 
     # @raise [ArgumentError] if +uid+ is not a +String+ or +Integer+ representation of a positive integer.
     # @raise [ArgumentError] if +since_id+ is set but not in the right format.
     # @raise [ArgumentError] if +account_name+ has not been set either in the constructor or the method call.
@@ -337,7 +411,7 @@ class WSAPI
         end
                 
         return {"type" => "error","message" => "USER_NOT_FOUND"} if response.status==400 && json_response["ok"]==0 && json_response["message"].is_a?(String) && json_response["message"].include?("(20003)")
-        return {"type" => "error","message" => "UNKNOWN_RESPONSE_STATUS","extra" => {"status" => response.status,"body" => response.body}} if response.status!=200
+        return {"type" => "error","message" => "UNKNOWN_RESPONSE_STATUS","extra" => {"status" => response.status,"body" => response.body}} if response.status!=200 && response.status!=400
         return {"type" => "error","message" => "STALE_SESSION"} if json_response["ok"]==-100 && json_response["url"].is_a?(String) && json_response["url"].include?("/login.php?")
         return {"type" => "success","data" => json_response} if json_response["ok"]==1 && !json_response[key_check].nil?
         return {"type" => "error","message" => "ACCOUNT_PRIVATE"} if json_response["ok"]==0 && json_response["statusCode"]==200 && json_response["relation_display"]==1

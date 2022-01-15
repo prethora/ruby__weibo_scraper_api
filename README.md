@@ -14,6 +14,8 @@
 
 ## Error Logging
 
+## Version Control
+
 ## Updates
 
 ## Documentation
