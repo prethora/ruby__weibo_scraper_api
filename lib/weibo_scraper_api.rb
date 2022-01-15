@@ -81,7 +81,7 @@ require 'logger'
 # * *WSAPI::Exceptions::UnknownResponse*
 #
 #   One of its descentants (see below) is raised if ever weibo.com returns a response the API does not recognize. The exception instance will have a +response+ attribute which is a +Hash+
-#   containing the raw response in the format: +{"status" => ...,"body" => "..."}+. 
+#   containing the raw response in the format: +{'status' => ...,'body' => '...'}+. 
 #
 # * *WSAPI::Exceptions::UnknownResponseStatus*
 #
@@ -94,7 +94,7 @@ require 'logger'
 # * *WSAPI::Exceptions::ConnectionError*
 #
 #   One of its descentants (see below) is raised if ever a connection related error occurs. The exception instance will have a +request+ attribute which is a +Hash+ in the
-#   following format: +{"method" => "...","url" => ""}+. The exception instance will also have a +wrapped_exception+ attribute which is the actual underlying system exception that
+#   following format: +{'method' => '...','url' => ''}+. The exception instance will also have a +wrapped_exception+ attribute which is the actual underlying system exception that
 #   was raised.
 #      
 # * *WSAPI::Exceptions::ConnectionSocketError*
@@ -107,7 +107,7 @@ require 'logger'
 #      
 # * *WSAPI::Exceptions::ConnectionUnknownError*
 #
-#   A descendent of +WSAPI::Exceptions::ConnectionError+. Is raised if the neither of the previous two conditions are met.
+#   A descendent of +WSAPI::Exceptions::ConnectionError+. Is raised if neither of the previous two conditions are met.
 #
 # * *WSAPI::Exceptions::Unexpected*
 #

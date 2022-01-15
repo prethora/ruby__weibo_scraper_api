@@ -97,13 +97,23 @@ Account sessions become stale 24 hours after they are created/renewed. The API a
 
 To be safe, I would recommend running the `wsapi accounts keep_alive` command as a cron job say every 5 days, to make sure any accounts you have configured but may not use regularly stay alive indefinitely. If you are using all accounts regularly though, this is unnecessary.
 
+Note: some API requests might take a bit longer than others - this would be when a session has staled and is being renewed. This only happens once every 24 hours per account though.
+
 #### Configure
 
 As mentioned above, run the `wsapi configure` to interactively edit the configuration values.
 
+## Data
+
+A note on the data returned by the API. The data is unprocessed and returned as weibo.com provides it. I decided this was best, as any kind of processing might break the API if the data format were to change on the side of weibo.com. As it is now, if the format does change, it might break your application, but you could remedy that in your own code without having to wait for the API to be updated.
+
+So basically you'll have to make requests and become acquainted with the data, and take what you need from it.
+
+Note however that the testing suite does rigidly test the returned format, so if anything were to change in how weibo.com provides the data, the tests would reveal that by failing.
+
 ## Testing
 
-#### Full manual test
+#### Manual test
 
 In the unzipped API directory (make sure to have run `bundle install` first), run the following command:
 
@@ -115,14 +125,36 @@ This will run a test which requires you to scan a QRCODE (exactly as you would w
 
 This test is useful to test the account adding mechanism as well as the API request methods, but obviously cannot be used as an automated test.
 
-### Partial automated test
+### Automated test
 
+To run an automated test using an account you have already added, run the following command:
 
+```bash
+bundle exec rake test account=<name>
+```
+
+This will test all four API methods using the specified account. 
+
+Alternatively, to just use the first account, run:
+
+```bash
+bundle exec rake test account=:first
+```
 
 ## Error Logging
 
+If any method which makes requests to weibo.com (including from an API class instance, the CLI account adding mechanism and the testing suite) raises an exception (excluding `ArgumentError` exceptions), a complete error log will be saved to the `logs` directory in the configured `data_dir` directory (defaults to `~/.wsapi/data`).
+
+The log file name will contain a timestamp, the exception class name and the method name. If you start encountering `WSAPI::Exceptions::UnknownResponseStatus`, `WSAPI::Exceptions::UnknownResponseBody` or `WSAPI::Exceptions::Unexpected` exceptions, then you have either come across some new responses we have yet to discover, or changes have been made on the side of weibo.com which have broken the API. In such cases, just find the error log file and send it to me, and I will have everything I need to create a fix and issue you an update.
+
 ## Version Control
+
+The zip as is contains a `.git` directory and an appropriate `.gitignore` file and is git controlled. It does not however contain any history - it only has one commit which encapsulates the current state. You just need to add a remote url to it, and it is ready to be pushed.
 
 ## Updates
 
+The best way to proceed with updates is probably for you to provide me permissions to access the private git repository where you would be hosting the source code. If that is on github.com, my username is `prethora`. I can then apply fixes, bump the version, push changes and you can pull them on your side. You would then just have to unpack the new gem and update the version number in your Gemfile.
+
 ## Documentation
+
+You will find complete documentation for the `WSAPI` class with examples in the [doc/WSAPI.html](doc/WSAPI.html) file.

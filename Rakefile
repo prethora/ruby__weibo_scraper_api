@@ -36,3 +36,9 @@ task :test do
     puts "$ #{command}"
     system command
 end
+
+task :doc do
+    command = "bundle exec yard doc lib"
+    puts "$ #{command}"
+    system command
+end
