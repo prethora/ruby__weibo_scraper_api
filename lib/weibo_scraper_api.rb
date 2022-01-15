@@ -124,7 +124,7 @@ class WSAPI
 
     # Returns the +uid+ of the selected account
     #
-    # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
+    # @param [String] account_name specify which account to use. If not set, +account_name+ must have been set on the constructor. If set, supersedes the +account_name+ provided to the constructor.
     # @return [String] the +uid+ of the selected account.    
     # @raise [ArgumentError] if +account_name+ has not been set either in the constructor or the method call.
     def my_uid(account_name: nil)
@@ -137,7 +137,7 @@ class WSAPI
     # Returns an unprocessed aggregation of the +profile/info+ and +profile/detail+ weibo.com API points for a specific user.
     #
     # @param [String|Integer] uid a +String+ or +Integer+ representation of the user's +uid+.
-    # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
+    # @param [String] account_name specify which account to use. If not set, +account_name+ must have been set on the constructor. If set, supersedes the +account_name+ provided to the constructor.
     # @return [Hash] +{'info' => ...,'detail' => ...}+. If block notation is used however, will return whatever the block returns.
     # @yield [Hash] +{'info' => ...,'detail' => ...}+.
     # @raise [ArgumentError] if +uid+ is not a +String+ or +Integer+ representation of a positive integer.
@@ -197,7 +197,7 @@ class WSAPI
     #
     # @param [String|Integer] uid a +String+ or +Integer+ representation of the user's +uid+.
     # @param [Integer] page the page number to request.
-    # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
+    # @param [String] account_name specify which account to use. If not set, +account_name+ must have been set on the constructor. If set, supersedes the +account_name+ provided to the constructor.
     # @return [Hash] +{'users' => [...],'total_number' => ...,'previous_cursor' => ...,'next_cursor' => ...}+. If block notation is used however, will return whatever the block returns.
     # @yield [Hash] +{'users' => [...],'total_number' => ...,'previous_cursor' => ...,'next_cursor' => ...}+.
     # @raise [ArgumentError] if +uid+ is not a +String+ or +Integer+ representation of a positive integer.
@@ -250,7 +250,7 @@ class WSAPI
     #
     # @param [String|Integer] uid a +String+ or +Integer+ representation of the user's +uid+.
     # @param [Integer] page the page number to request.
-    # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
+    # @param [String] account_name specify which account to use. If not set, +account_name+ must have been set on the constructor. If set, supersedes the +account_name+ provided to the constructor.
     # @return [Hash] +{'users' => [...],'total_number' => ...,'previous_cursor' => ...,'next_cursor' => ...}+. If block notation is used however, will return whatever the block returns.
     # @yield [Hash] +{'users' => [...],'total_number' => ...,'previous_cursor' => ...,'next_cursor' => ...}+.
     # @raise [ArgumentError] if +uid+ is not a +String+ or +Integer+ representation of a positive integer.
@@ -301,11 +301,11 @@ class WSAPI
 
     # Returns one page of the unprocessed output of the +statuses/mymblog+ weibo.com API point for a specific user.
     #
-    # Note: when the last page is encountered, the +since_id+ field in the response is an empty string.
+    # Note: when the last page is encountered, the +since_id+ field in the response will be an empty string.
     #
     # @param [String|Integer] uid a +String+ or +Integer+ representation of the user's +uid+.
     # @param [String] since_id a value included in each response which should be provided here in order to request the next page. If not provided, the first page is requested.
-    # @param [String] account_name specify which account to use. Supersedes the +account_name+ provided to the constructor.
+    # @param [String] account_name specify which account to use. If not set, +account_name+ must have been set on the constructor. If set, supersedes the +account_name+ provided to the constructor.
     # @return [Hash] +{'list' => [...],'since_id' => ...}+. If block notation is used however, will return whatever the block returns.
     # @yield [Hash] +{'list' => [...],'since_id' => ...}+. 
     # @raise [ArgumentError] if +uid+ is not a +String+ or +Integer+ representation of a positive integer.
@@ -359,7 +359,7 @@ class WSAPI
     # Check all configured accounts for stale sessions and renew them.
     #
     # *Note*: Account sessions become stale 24 hours after they are created/renewed. The API automatically
-    # renews them if they are found to have staled upon all request method calls, so you generally do not have to worry about stale sessions.
+    # renews them if they are found to have staled, upon all request method calls, so you generally do not have to worry about stale sessions.
     # However, if you do not use (and thus renew) a session for a long period of time, it may become completely invalidated, in which case
     # you would have to add the account again using the CLI tool. (I have yet to actually experience this, I have been able to renew sessions even several weeks 
     # after no use - but I am assuming that after some period of time they would probably expire).
