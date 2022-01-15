@@ -1,4 +1,4 @@
-lib/weibo_scraper_api.rb e12919c688857b7dc04365c40d387ce3ec8d4e07
+lib/weibo_scraper_api.rb 45de60f53805c78114b8e44cb830f74258dffe0f
 lib/weibo_scraper_api/api.rb b694d0672c2b04a3174c4bcb0c3f012984a68b0c
 lib/weibo_scraper_api/cli.rb a8a5f8652cd4abe80d48426481cc6a31571f6f92
 lib/weibo_scraper_api/util.rb 8f98676cf520b66a4ce71d734e0cba65f53b0d2e

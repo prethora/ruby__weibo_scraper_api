@@ -10,6 +10,10 @@ require 'logger'
 # Please see the +#Configuration+ and +#CLI+ sections from the +README.md+ file first, to better understand what
 # the +config_path+ and +account_name+ named arguments in these examples are for.
 # 
+# == Requiring the API
+#
+#   require 'weibo_scraper_api'
+#
 # == Creating an instance of the API interface
 # Using the default configuration path ( +~/.wsapi/config.yaml+ or the value of the +WSAPI_CONFIG_PATH+ environment value, if set).
 #   wsapi = WSAPI.new
